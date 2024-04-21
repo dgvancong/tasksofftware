@@ -1,1 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/scss/bootstrap';
+@import'./assets/styles/color.scss';
+
+
+*{
+  font-family: 'Sarabun', sans-serif;
+}
+.ant-modal-close-x {
+  display: none !important;
+}
+.ant-modal-wrap {
+  overflow: unset !important;
+}
+.cdk-global-scrollblock {
+  overflow-y: auto !important;
+}
+.ant-menu-inline.ant-menu-root
+.ant-menu-submenu-title {
+  gap: 16px;
+}
+.ant-menu-item
+.ant-menu-item-icon + span,
+.ant-menu-item .anticon + span,
+.ant-menu-submenu-title
+.ant-menu-item-icon + span,
+.ant-menu-submenu-title
+.anticon + span {
+  margin-left: 0 !important;
+}
+.ant-menu-sub.ant-menu-inline {
+  background: #FFFFFF !important;
+}
+.ant-menu-item .anticon,
+.ant-menu-submenu-title .anticon{
+  min-width: 18px !important;
+  font-size: 18px !important;
+}
+.ant-menu-inline >
+.ant-menu-submenu >
+.ant-menu-submenu-title{
+  height: 50px !important;
+  line-height: 50px !important;
+}
+.ant-menu-inline > .ant-menu-item{
+  height: 50px !important;
+  line-height: 50px !important;
+}
+.ant-tabs-tab-btn {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}

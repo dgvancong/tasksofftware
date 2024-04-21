@@ -1,0 +1,54 @@
+<div class="bg-title">
+  <div class="header-location">
+    <p>
+      Quản lý dự án
+      <span>
+        <img src="/assets/icon/project/Icon-arrow.svg" alt="">
+      </span>
+      <a href="">Tổng quan dự án</a>
+    </p>
+  </div>
+  <div class="bg-header-text">
+
+    <div class="header-text">
+      <h3>Tổng quan dự án</h3>
+    </div>
+    <div class="bg-header-text-button">
+      <button>Thêm mới</button>
+    </div>
+  </div>
+</div>
+
+<div class="content-body">
+  <div class="header-map">
+    <h6>Danh sách</h6>
+    <p>
+      <img src="/assets/icon/project/Icon.svg" alt="">
+    </p>
+  </div>
+
+  <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th>Tên dự án</th>
+        <th>Mã dự án</th>
+        <th>Loại dự án</th>
+        <th>Hạng mục</th>
+        <th>Ngày bắt đầu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td routerLink="/project/work-summary">{{ data.name }}</td>
+        <td>{{ data.age }}</td>
+        <td>{{ data.address }}</td>
+        <td>
+          <a>Action 一 {{ data.name }}</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a>Delete</a>
+        </td>
+        <td>{{ data.address }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
