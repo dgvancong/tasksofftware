@@ -1,0 +1,64 @@
+<div class="bg-title">
+  <div class="header-location">
+    <p>
+      Quản lý dự án
+      <span style=" margin: 8px;">
+        <img src="/assets/icon/project/Icon-arrow.svg" alt="">
+      </span>
+      <a href="">Tổng quan dự án</a>
+    </p>
+  </div>
+  <div class="bg-header-text">
+
+    <div class="header-text">
+      <h3>Tổng quan dự án</h3>
+    </div>
+    <div class="bg-header-text-button">
+      <button>Thêm mới</button>
+    </div>
+  </div>
+</div>
+
+<div class="content-body">
+  <div class="header-map">
+    <h6>Danh sách</h6>
+    <p>
+      <img src="/assets/icon/project/Icon.svg" alt="">
+    </p>
+  </div>
+
+  <nz-table
+  [nzShowPagination]="false"
+  [nzData]="projects"
+  >
+    <thead>
+      <tr>
+        <th>Tên dự án</th>
+        <th>Mã dự án</th>
+        <th>Loại dự án</th>
+        <th>Hạng mục</th>
+        <th>Ngày bắt đầu</th>
+        <th>Tiến trình</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects">
+        <td routerLink="/project/work-summary" style="gap: 10px; display: flex;">
+          <img src="{{ project.imgUser }}" width="24px" height="24px" alt="">
+          <span style="margin-top: 5px;">{{ project.projectName }}</span>
+        </td>
+        <td>{{ project.projectKey }}</td>
+        <td>{{ project.projectDescription }}</td>
+        <td>{{ project.teamFullName }}</td>
+        <td>{{ project.createdDate | date: 'dd-MM-yyyy'}}</td>
+        <td><nz-progress [nzPercent]="project.progress" [nzShowInfo]="false"></nz-progress></td>
+        <td style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; height: 55px;">
+          <span nz-icon nzType="delete" nzTheme="outline"></span>
+          <span nz-icon nzType="form" nzTheme="outline"></span>
+          <span nz-icon nzType="copy" nzTheme="outline"></span>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

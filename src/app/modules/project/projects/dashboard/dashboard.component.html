@@ -1,0 +1,168 @@
+<div class="bg-title">
+  <div class="bg-header-text">
+    <div class="header-text">
+      <h5>Trang chủ</h5>
+      <p>Date time oct, 08-11-2023</p>
+    </div>
+    <div class="bg-header-text-button">
+      <button>Thêm mới</button>
+    </div>
+  </div>
+  <div class="bg-header-tabs">
+    <nz-tabset>
+      <nz-tab (nzClick)="statusView = 1" nzTitle="Tổng quan"></nz-tab>
+      <nz-tab (nzClick)="statusView = 2" nzTitle="Hồ sơ"></nz-tab>
+      <nz-tab (nzClick)="statusView = 3" nzTitle="Thống kê"></nz-tab>
+      <nz-tab nzTitle="Tin nhắn"></nz-tab>
+      <nz-tab (nzClick)="statusView = 5" nzTitle="Nhóm"></nz-tab>
+      <nz-tab nzTitle="Thông báo"></nz-tab>
+      <nz-tab (nzClick)="statusView = 7" nzTitle="Thiết lập"></nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+
+
+<div class="content-body" >
+  <div *ngIf="statusView === 1" class="dashboard-module">
+    <div class="bg-card-app">
+      <div class="bg-card-app-sketch">
+        <div class="sketch-img">
+          <img src="/assets/icon/project/Avatar.svg" alt="">
+        </div>
+        <h6>Sketch</h6>
+        <nz-progress [nzPercent]="70" [nzShowInfo]="false" nzStatus="exception"></nz-progress>
+        <div class="sketch-GB">
+          <p>150 GB</p>
+          <p>120 GB</p>
+        </div>
+      </div>
+      <div class="bg-card-app-sketch">
+        <div class="sketch-img">
+          <img src="/assets/icon/project/asana.svg" alt="">
+        </div>
+        <h6>Asana</h6>
+        <nz-progress [nzPercent]="50" [nzShowInfo]="false" nzStatus="exception" ></nz-progress>
+        <div class="sketch-GB">
+          <p>120 GB</p>
+          <p>50 GB</p>
+        </div>
+      </div>
+      <div class="bg-card-app-sketch">
+        <div class="sketch-img">
+          <img src="/assets/icon/project/trello.svg" alt="">
+        </div>
+        <h6>Trello</h6>
+        <nz-progress [nzPercent]="80" [nzShowInfo]="false" nzStatus="exception"></nz-progress>
+        <div class="sketch-GB">
+          <p>180 GB</p>
+          <p>20 GB</p>
+        </div>
+      </div>
+      <div class="bg-card-app-sketch">
+        <div class="sketch-img">
+          <img src="/assets/icon/project/dropbox.svg" alt="">
+        </div>
+        <h6>Dropbox</h6>
+        <nz-progress [nzPercent]="30" [nzShowInfo]="false" nzStatus="exception"></nz-progress>
+        <div class="sketch-GB">
+          <p>20 GB</p>
+          <p>150 GB</p>
+        </div>
+      </div>
+    </div>
+    <section class="section-map">
+      <div class="left-map">
+        <div class="header-map">
+          <h6>Demographics</h6>
+          <p>
+            <img src="/assets/icon/project/Icon.svg" alt="">
+          </p>
+        </div>
+      </div>
+      <div class="right-map">
+        <div class="header-map">
+          <h6>Thống kê</h6>
+          <p>
+            <img src="/assets/icon/project/Icon.svg" alt="">
+          </p>
+        </div>
+        <div class="header-progress">
+          <div class="progress-circle">
+            <nz-progress [nzPercent]="75" nzType="circle" [nzWidth]="200" ></nz-progress>
+          </div>
+          <div class="progress-map-body">
+            <div class="progress-map">
+              <div class="progress-data">
+                <span>
+                  <img src="/assets/icon/project/Icon-plus.svg" alt="">
+                  Games
+                </span>
+                <h6>16,58%</h6>
+              </div>
+              <div class="progress-data">
+                <span>
+                  <img src="/assets/icon/project/Icon-plus.svg" alt="">
+                  Movies
+                </span>
+                <h6>25,58%</h6>
+              </div>
+              <div class="progress-data">
+                <span>
+                  <img src="/assets/icon/project/Icon-plus.svg" alt="">
+                  Kids
+                </span>
+                <h6>54.32%</h6>
+              </div>
+              <div class="progress-data">
+                <span>
+                  <img src="/assets/icon/project/Icon-plus.svg" alt="">
+                  Home
+                </span>
+                <h6>9.78%</h6>
+              </div>
+            </div>
+            <div class="progress-map">
+              <div class="progress-data">
+                <span>
+                  <img src="/assets/icon/project/Icon-plus.svg" alt="">
+                  Music
+                </span>
+                <h6>34.45%</h6>
+              </div>
+              <div class="progress-data">
+                <span>
+                  <img src="/assets/icon/project/Icon-plus.svg" alt="">
+                  Books
+                </span>
+                <h6>8.53%</h6>
+              </div>
+              <div class="progress-data">
+                <span>
+                  <img src="/assets/icon/project/Icon-plus.svg" alt="">
+                  Clothing
+                </span>
+                <h6>3.45%</h6>
+              </div>
+              <div class="progress-data">
+                <span>
+                  <img src="/assets/icon/project/Icon-plus.svg" alt="">
+                  Movies
+                </span>
+                <h6>0.14%</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<app-project-profile *ngIf="statusView === 2"></app-project-profile>
+
+<app-project-statis *ngIf="statusView === 3"></app-project-statis>
+
+<app-project-team *ngIf="statusView === 4"></app-project-team>
+
+<app-project-setting *ngIf="statusView ===5"></app-project-setting>
+

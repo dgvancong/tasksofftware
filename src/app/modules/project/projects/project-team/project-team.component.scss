@@ -1,0 +1,24 @@
+@import'../../../../../assets/styles/color.scss';
+
+.content-body{
+  width: 100%;
+  height: auto;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  padding: 16px 20px 16px 20px;
+
+  .header-map{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $color-border;
+
+    h6{
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+      letter-spacing: -0.10000000149011612px;
+      color: #272D37;
+    }
+  }
+}

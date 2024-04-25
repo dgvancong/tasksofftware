@@ -1,0 +1,65 @@
+<div class="bg-title">
+  <div class="header-location">
+    <p>
+      Quản lý dự án
+      <span style="margin: 8px;">
+        <img src="/assets/icon/project/Icon-arrow.svg" alt="">
+      </span>
+      <a href="">Hợp đồng</a>
+    </p>
+  </div>
+  <div class="bg-header-text">
+
+    <div class="header-text">
+      <h3>Hợp đồng</h3>
+    </div>
+    <div class="bg-header-text-button">
+      <button>Thêm mới</button>
+    </div>
+  </div>
+</div>
+
+<div class="content-body">
+  <div class="header-map">
+    <h6>Danh sách</h6>
+    <p>
+      <img src="/assets/icon/project/Icon.svg" alt="">
+    </p>
+  </div>
+
+  <nz-table
+  [nzShowPagination]="false"
+  [nzData]="projects"
+  >
+    <thead>
+      <tr>
+        <th>Tên dự án</th>
+        <th>Mã dự án</th>
+        <th>Tên khách hàng</th>
+        <th>Email</th>
+        <th>Số điện thoại</th>
+        <th>Ngày bắt đầu</th>
+        <th>Ngày kết thúc</th>
+        <th>Trạng thái</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects">
+        <td routerLink="/project/work-summary">{{ project.projectName }}</td>
+        <td>{{ project.projectKey }}</td>
+        <td>{{ project.clientContactName }}</td>
+        <td>{{ project.clientContactEmail }}</td>
+        <td>{{ project.clientContactPhone }}</td>
+        <td>{{ project.createdDate | date: 'dd-MM-yyyy'}}</td>
+        <td>{{ project.endDate | date: 'dd-MM-yyyy'}}</td>
+        <td></td>
+        <td style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; height: 55px;">
+          <span nz-icon nzType="delete" nzTheme="outline"></span>
+          <span nz-icon nzType="form" nzTheme="outline"></span>
+          <span nz-icon nzType="copy" nzTheme="outline"></span>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

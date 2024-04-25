@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../../service/user.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-login',
@@ -7,25 +9,40 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   user = {
     emailAddress: '',
     password: ''
   };
   passwordVisible = false;
-  constructor( private router: Router) { }
+  constructor(
+    private userService: UserService,
+    private notification: NzNotificationService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+
+  }
 
   login() {
-    // this.authService.login(this.user).subscribe(
-    //   (response) => {
-    //     this.message.success('Đăng nhập thành công').onClose.subscribe(() => {
-    //     this.router.navigate(['/home/welcome']);
-    //     });
-    //   },
-    //   (error) => {
-    //     this.message.error('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin đăng nhập.', error);
-    //   }
-    //   );
+    this.userService.login(this.user).subscribe(
+      (response) => {
+        setTimeout(() => {
+          this.router.navigate(['/project']);
+          this.notification.success(
+            'Đăng nhập thành công',
+            'Chúc mừng bạn đã đăng nhập thành công vào hệ thống!'
+          );
+        }, 1000);
+      },
+      (error) => {
+        this.notification.error(
+          'Đăng nhập thất bại',
+          'Vui lòng kiểm tra lại thông tin đăng nhập.'
+        );
+      }
+    );
   }
   showPassword = false;
   togglePasswordVisibility() {

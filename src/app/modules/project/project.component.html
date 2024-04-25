@@ -1,10 +1,10 @@
 <nz-layout class="app-layout">
   <nz-sider
-  class="menu-sidebar"
-  nzWidth="276px"
-  nzCollapsible
-  [(nzCollapsed)]="isCollapsed"
-  [nzTrigger]="null"
+    class="menu-sidebar"
+    nzWidth="276px"
+    nzCollapsible
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
   >
     <div class="sidebar-logo">
       <img src="./assets/logo/Artboard 1.jpg" alt="" />
@@ -77,20 +77,20 @@
           <div class="header-item-message">
             <span nz-icon nzType="control" style="font-size: 22px;" nzTheme="outline"></span>
           </div>
-          <div class="header-item-avatar" nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="users">
+          <div class="header-item-avatar" nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="users" *ngFor="let member of userData">
             <nz-avatar [nzSize]="28" style="background-color: #EE0033" nzText="D"></nz-avatar>
-            <nz-dropdown-menu #users="nzDropdownMenu">
+            <nz-dropdown-menu #users="nzDropdownMenu" >
               <ul nz-menu>
                 <li nz-menu-item>
-                  <span nz-icon nzType="user-switch" nzTheme="outline"></span>
+                  <span nz-icon nzType="user-switch" nzTheme="outline" style="font-size: 18px;"></span>
                   Quản lý tài khoản
                 </li>
                 <li nz-menu-item>
-                  <span nz-icon nzType="bulb" nzTheme="outline"></span>
+                  <span nz-icon nzType="bulb" nzTheme="outline" style="font-size: 18px;"></span>
                   Chế độ : Sáng
                 </li>
                 <li nz-menu-item (click)="showModal()">
-                  <span nz-icon nzType="logout" nzTheme="outline"></span>
+                  <span nz-icon nzType="logout" nzTheme="outline" style="font-size: 18px;"></span>
                   Đăng xuất
                 </li>
                 <nz-modal
@@ -100,17 +100,17 @@
                 nzWidth="420px"
                 >
                   <ng-container *nzModalContent>
-                    <div class="bg-modal-body" style="height: 420px;">
+                    <div class="bg-modal-body" style="height: 420px;" >
                       <div class="bg-background"></div>
                       <div class="bg-avatar">
                         <div>
                           <img src="./assets/image/project/Thumbnail.png" alt="">
                         </div>
                         <div class="bd-info">
-                          <h5 class="bd-info-name">Dong Van Cong</h5>
-                          <p class="bd-info-email">dongvancong24&#64;gmail.com</p>
+                          <h5 class="bd-info-name">{{ member.fullName }}</h5>
+                          <p class="bd-info-email">{{ member.emailAddress }}</p>
                         </div>
-                        <button class="bg-button">Đăng xuất khỏi hệ thống</button>
+                        <button class="bg-button" (click)="logout()">Đăng xuất khỏi hệ thống</button>
 
                         <div style="height: 1px; align-self: stretch; width: 100%; border: 1px solid #EBEBEB; margin-bottom: 24px;"></div>
 
@@ -134,31 +134,6 @@
     <nz-content>
 
       <div class="inner-content">
-
-        <div class="bg-title">
-          <div class="bg-header-text">
-            <div class="header-text">
-              <h5>Trang chủ</h5>
-              <p>Date time oct, 08-11-2023</p>
-            </div>
-            <div class="bg-header-text-button">
-              <button>Thêm mới</button>
-            </div>
-          </div>
-          <div class="bg-header-tabs">
-            <nz-tabset>
-              <nz-tab nzTitle="Tổng quan"></nz-tab>
-              <nz-tab nzTitle="Hồ sơ" (nzClick)="hideContent()"></nz-tab>
-              <nz-tab nzTitle="Thống kê" (nzClick)="hideContent()"></nz-tab>
-              <nz-tab nzTitle="Tin nhắn" (nzClick)="hideContent()"></nz-tab>
-              <nz-tab nzTitle="Nhóm" (nzClick)="hideContent()"></nz-tab>
-              <nz-tab nzTitle="Thông báo" (nzClick)="hideContent()"></nz-tab>
-              <nz-tab nzTitle="Thiết lập" (nzClick)="hideContent()">
-                <app-settings></app-settings>
-              </nz-tab>
-            </nz-tabset>
-          </div>
-        </div>
 
         <router-outlet></router-outlet>
 

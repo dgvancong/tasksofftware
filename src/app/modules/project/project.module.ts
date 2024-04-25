@@ -8,30 +8,42 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzTableModule } from 'ng-zorro-antd/table';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 
 // Components
-import { AvatarComponent } from './avatar/avatar.component';
-import { CalendarComponent } from './calendar/calendar.component';
-import { FormComponent } from './form/form.component';
-import { IssuesComponent } from './issues/issues.component';
-import { PagesComponent } from './pages/pages.component';
-import { ProjectAddComponent } from './project-add/project-add.component';
-import { ProjectListComponent } from './project-list/project-list.component';
-import { ProjectViewsComponent } from './project-views/project-views.component';
-import { ReportsComponent } from './reports/reports.component';
-import { SettingsComponent } from './settings/settings.component';
-import { ShortcutsComponent } from './shortcuts/shortcuts.component';
-import { SummaryComponent } from './summary/summary.component';
-import { TimlineComponent } from './timline/timline.component';
-import { WorkComponent } from './work/work.component';
+import { AvatarComponent } from './tasks/avatar/avatar.component';
+import { CalendarComponent } from './tasks/calendar/calendar.component';
+import { FormComponent } from './tasks/form/form.component';
+import { IssuesComponent } from './tasks/issues/issues.component';
+import { PagesComponent } from './tasks/pages/pages.component';
+import { ProjectAddComponent } from './projects/project-add/project-add.component';
+import { ProjectListComponent } from './projects/project-list/project-list.component';
+import { ProjectViewsComponent } from './projects/project-views/project-views.component';
+import { ReportsComponent } from './tasks/reports/reports.component';
+import { SettingsComponent } from './tasks/settings/settings.component';
+import { ShortcutsComponent } from './tasks/shortcuts/shortcuts.component';
+import { SummaryComponent } from './tasks/summary/summary.component';
+import { TimlineComponent } from './tasks/timline/timline.component';
 import { ProjectComponent } from './project.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { DashboardComponent } from './projects/dashboard/dashboard.component';
+import { ProjectMesComponent } from './projects/project-mes/project-mes.component';
+import { ProjectNotificationComponent } from './projects/project-notification/project-notification.component';
+import { ProjectSettingComponent } from './projects/project-setting/project-setting.component';
+import  { ProjectTeamComponent } from './projects/project-team/project-team.component';
+import { ProjectProfileComponent } from './projects/project-profile/project-profile.component';
+import { ProjectStatisComponent } from './projects/project-statis/project-statis.component';
+
+
+
+
+
 
 
 
@@ -50,9 +62,14 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     ShortcutsComponent,
     SummaryComponent,
     TimlineComponent,
-    WorkComponent,
     ProjectComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProjectMesComponent,
+    ProjectSettingComponent,
+    ProjectNotificationComponent,
+    ProjectTeamComponent,
+    ProjectProfileComponent,
+    ProjectStatisComponent
   ],
   imports: [
     CommonModule,
@@ -67,7 +84,11 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzTabsModule,
     NzProgressModule,
     NzTableModule,
-    NzDividerModule
+    NzDividerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    NzPaginationModule
   ],
   exports: [
     AvatarComponent,
@@ -83,9 +104,14 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     ShortcutsComponent,
     SummaryComponent,
     TimlineComponent,
-    WorkComponent,
     ProjectComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProjectMesComponent,
+    ProjectSettingComponent,
+    ProjectNotificationComponent,
+    ProjectTeamComponent,
+    ProjectProfileComponent,
+    ProjectStatisComponent
   ]
 })
 export class ProjectModule { }

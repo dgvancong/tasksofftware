@@ -19,4 +19,8 @@ export class TeamService {
     return this.http.post<any>(`${this.teamUrl}/add_team_member`, teammenber);
   }
 
+  getProjectTeamID(projectID: any): Observable<any> {
+    return this.http.get(`${this.teamUrl}/projectteam/${projectID}`);
+  }
+
 }

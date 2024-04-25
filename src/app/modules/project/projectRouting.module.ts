@@ -1,22 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CalendarComponent } from './calendar/calendar.component';
-import { FormComponent } from './form/form.component';
-import { PagesComponent } from './pages/pages.component';
-import { ProjectAddComponent } from './project-add/project-add.component';
-import { ProjectListComponent } from './project-list/project-list.component';
-import { ProjectViewsComponent } from './project-views/project-views.component';
-import { ReportsComponent } from './reports/reports.component';
-import { SettingsComponent } from './settings/settings.component';
-import { ShortcutsComponent } from './shortcuts/shortcuts.component';
-import { SummaryComponent } from './summary/summary.component';
-import { TimlineComponent } from './timline/timline.component';
-import { WorkComponent } from './work/work.component';
+import { CalendarComponent } from './tasks/calendar/calendar.component';
+import { FormComponent } from './tasks/form/form.component';
+import { PagesComponent } from './tasks/pages/pages.component';
+import { ProjectAddComponent } from './projects/project-add/project-add.component';
+import { ProjectListComponent } from './projects/project-list/project-list.component';
+import { ProjectViewsComponent } from './projects/project-views/project-views.component';
+import { ReportsComponent } from './tasks/reports/reports.component';
+import { SettingsComponent } from './tasks/settings/settings.component';
+import { ShortcutsComponent } from './tasks/shortcuts/shortcuts.component';
+import { SummaryComponent } from './tasks/summary/summary.component';
+import { TimlineComponent } from './tasks/timline/timline.component';
 import { ProjectComponent } from './project.component';
-import { IssuesComponent } from './issues/issues.component';
-import { AvatarComponent } from './avatar/avatar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { IssuesComponent } from './tasks/issues/issues.component';
+import { AvatarComponent } from './tasks/avatar/avatar.component';
+import { DashboardComponent } from './projects/dashboard/dashboard.component';
 
 
 export const routes: Routes = [
@@ -33,8 +32,6 @@ export const routes: Routes = [
       { path: 'project-list', component: ProjectListComponent },
 
       { path: 'project-view', component: ProjectViewsComponent },
-
-      { path: 'work', component: WorkComponent },
 
       { path: 'work-timline', component: TimlineComponent },
 

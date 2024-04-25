@@ -6,6 +6,17 @@
 *{
   font-family: 'Sarabun', sans-serif;
 }
+::-webkit-scrollbar {
+  width: 4px !important;
+  height: 10px !important;
+}
+::-webkit-scrollbar-thumb {
+  background: #EE0033;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #E4F4FE;
+}
 .ant-modal-close-x {
   display: none !important;
 }
@@ -50,4 +61,17 @@
   font-size: 14px;
   font-weight: 700;
   line-height: 20px;
+}
+.ant-pagination-item {
+  border: none !important;
+}
+.ant-pagination-next
+.ant-pagination-item-link,
+.ant-pagination-prev
+.ant-pagination-item-link {
+  border: none !important;
+}
+
+td.nz-disable-td.ant-table-cell {
+  padding-left: 50px;
 }

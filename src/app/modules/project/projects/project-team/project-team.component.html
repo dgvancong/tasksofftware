@@ -1,0 +1,71 @@
+<div class="content-body">
+  <div class="header-map">
+    <h6>Danh sách các nhóm</h6>
+    <p>
+      <img src="/assets/icon/project/Icon.svg" alt="">
+    </p>
+  </div>
+
+  <nz-table
+  [nzShowPagination]="false"
+  #nzTable [nzData]="listOfData"
+  nzTableLayout="fixed"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="50px"></th>
+        <th>Tên dự án</th>
+        <th>Tên nhóm</th>
+        <th>Trưởng nhóm</th>
+        <th style="text-align: center;">Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of nzTable.data">
+        <tr>
+          <td [nzExpand]="expandSet.has(data.id)" [nzExpandIcon]="expandIcon"></td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.age }}</td>
+          <td>{{ data.address }}</td>
+          <td style="display: flex; justify-content: space-evenly; align-items: center; cursor: pointer; height: 55px;">
+            <span nz-icon nzType="delete" nzTheme="outline"></span>
+            <span nz-icon nzType="form" nzTheme="outline"></span>
+            <span nz-icon nzType="copy" nzTheme="outline"></span>
+          </td>
+        </tr>
+        <tr [nzExpand]="expandSet.has(data.id)">
+          <span nz-icon nzType="arrow-right" nzTheme="outline" style="margin: 10px;"></span>
+          {{ data.description }}
+        </tr>
+        <tr [nzExpand]="expandSet.has(data.id)">
+          <span nz-icon nzType="arrow-right" nzTheme="outline" style="margin: 10px;"></span>
+          {{ data.description }}
+        </tr>
+        <tr [nzExpand]="expandSet.has(data.id)">
+          <span nz-icon nzType="arrow-right" nzTheme="outline" style="margin: 10px;"></span>
+          {{ data.description }}
+        </tr>
+        <tr [nzExpand]="expandSet.has(data.id)">
+          <span nz-icon nzType="arrow-right" nzTheme="outline" style="margin: 10px;"></span>
+          {{ data.description }}
+        </tr>
+        <ng-template #expandIcon>
+          <span
+            nz-icon
+            *ngIf="!expandSet.has(data.id)"
+            nzType="plus-circle"
+            nzTheme="outline"
+            (click)="onExpandChange(data.id, true)"
+          ></span>
+          <span
+            nz-icon
+            *ngIf="expandSet.has(data.id)"
+            nzType="minus-circle"
+            nzTheme="outline"
+            (click)="onExpandChange(data.id, false)"
+          ></span>
+        </ng-template>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</div>
