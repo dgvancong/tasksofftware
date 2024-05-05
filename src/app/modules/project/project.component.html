@@ -7,7 +7,7 @@
     [nzTrigger]="null"
   >
     <div class="sidebar-logo">
-      <img src="./assets/logo/Artboard 1.jpg" alt="" />
+      <img src="/assets/logo/logo-web.png" alt="" />
     </div>
     <div style="height: 1px; border-bottom: 1px solid #E5E8EB; width: 228px; margin-left: 22px;"></div>
 
@@ -40,7 +40,7 @@
         </ul>
       </li>
 
-      <li nz-menu-item>
+      <li nz-menu-item routerLink="/project/setting">
         <span nz-icon nzType="setting" nzTheme="outline"></span>
         Cài đặt
       </li>
@@ -57,28 +57,17 @@
             <nz-badge [nzDot]="dot">
               <span nz-icon nzType="bell" style="font-size: 22px;" nzTheme="outline"></span>
             </nz-badge>
-            <nz-dropdown-menu #notification="nzDropdownMenu">
-              <ul nz-menu>
-                <li nz-menu-item>
-                  <span nz-icon nzType="user-switch" nzTheme="outline"></span>
-                  Quản lý tài khoản
-                </li>
-                <li nz-menu-item>
-                  <span nz-icon nzType="bulb" nzTheme="outline"></span>
-                  Chế độ : Sáng
-                </li>
-                <li nz-menu-item>
-                  <span nz-icon nzType="logout" nzTheme="outline"></span>
-                  Đăng xuất
-                </li>
-              </ul>
+            <nz-dropdown-menu
+            #notification="nzDropdownMenu"
+            >
+
             </nz-dropdown-menu>
           </div>
           <div class="header-item-message">
             <span nz-icon nzType="control" style="font-size: 22px;" nzTheme="outline"></span>
           </div>
           <div class="header-item-avatar" nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="users" *ngFor="let member of userData">
-            <nz-avatar [nzSize]="28" style="background-color: #EE0033" nzText="D"></nz-avatar>
+            <nz-avatar [nzSize]="28" style="background-color: #1890ff" nzText="D"></nz-avatar>
             <nz-dropdown-menu #users="nzDropdownMenu" >
               <ul nz-menu>
                 <li nz-menu-item>

@@ -11,8 +11,14 @@ export class TeamService {
 
   private teamUrl = 'https://taskmasternodejs.vercel.app/team';
 
+  private apiUrl = 'http://localhost:3000/team';
+
   getTeams(): Observable<any> {
-    return this.http.get<any>(`${this.teamUrl}`);
+    return this.http.get<any>(`${this.apiUrl}`);
+  }
+
+  getTeamsAndMembers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/team-menber`);
   }
 
   addTeammenber(teammenber: any): Observable<any> {

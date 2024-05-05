@@ -219,3 +219,12 @@
     }
   }
 }
+.scrollable-table {
+  max-height: 28vw;
+  overflow-y: hidden;
+  width: auto;
+}
+.scrollable-table:hover {
+  overflow-y: auto;
+}
+// statusView: any = 1;

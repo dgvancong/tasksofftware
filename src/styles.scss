@@ -8,14 +8,17 @@
 }
 ::-webkit-scrollbar {
   width: 4px !important;
-  height: 10px !important;
+  height: 4px !important;
+}
+.ant-table-tbody > tr > td {
+  text-align: center;
 }
 ::-webkit-scrollbar-thumb {
-  background: #EE0033;
+  background: #1890ff;
   border-radius: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #E4F4FE;
+  background: #1890ff;
 }
 .ant-modal-close-x {
   display: none !important;
@@ -74,4 +77,22 @@
 
 td.nz-disable-td.ant-table-cell {
   padding-left: 50px;
+}
+
+// Board
+.ant-picker-input > input:placeholder-shown {
+  text-overflow: ellipsis;
+  font-size: 14px !important;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+.ant-modal-title {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 28px;
+  letter-spacing: -0.1000000015px;
+  text-align: left;
+  color: #272D37;
+  margin: 0;
 }

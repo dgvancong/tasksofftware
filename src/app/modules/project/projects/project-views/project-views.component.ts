@@ -11,6 +11,9 @@ import { Project } from '../../../../models/interface/project';
 })
 export class ProjectViewsComponent implements OnInit {
   projects: Project[] = [];
+  isDelete = false;
+  isUpdate = false;
+  dateFormat = 'dd-MM-yyyy'
 
   constructor(
     private projectService: ProjectService,
@@ -18,6 +21,12 @@ export class ProjectViewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProejct();
+  }
+  showDelete():void {
+    this.isDelete = true;
+  }
+  showUpdate(): void{
+    this.isUpdate = true;
   }
 
   getProejct(): void {

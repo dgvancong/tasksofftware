@@ -1,10 +1,17 @@
-export interface Team {
+interface Team {
   teamID: number;
   teamName: string;
-  create_at: string;
-  updated_at: string;
+  createdDate: string;
 }
 
-export interface ResponseData {
+interface MemberData {
+  teamMemberID: number;
+  userID: number;
+  fullName: string;
+  roleID: number;
+  joinDate: string;
+}
+
+export interface TeamData {
   data: Team[];
 }

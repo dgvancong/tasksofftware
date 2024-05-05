@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../../../service/project.service';
-import { Project } from '../../../../models/interface/project';
+import { TeamService } from '../../../../service/team.service';
+import { TeamData } from '../../../../models/interface/team';
 
 @Component({
   selector: 'app-project-team',
@@ -11,11 +11,34 @@ import { Project } from '../../../../models/interface/project';
 export class ProjectTeamComponent implements OnInit {
 
   expandSet = new Set<number>();
+  dateFormat = 'dd-MM-yyyy'
+  teams: any[] = [];
+  isDelete = false;
+  isUpdate = false
 
-  constructor(){}
+  constructor(private teamService: TeamService){}
 
   ngOnInit(): void {
-
+    this.loadTeamsAndMembers();
+  }
+  showDelete(){
+    this.isDelete = true;
+  }
+  showUpdate(){
+    this.isUpdate = true;
+  }
+  getMemberCount(team: any): number {
+    return team.members.length;
+  }
+  loadTeamsAndMembers() {
+    this.teamService.getTeams().subscribe(
+      (data) => {
+        this.teams = data;
+      },
+      (error) => {
+        console.error('Error fetching teams and members:', error);
+      }
+    );
   }
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {
@@ -24,17 +47,5 @@ export class ProjectTeamComponent implements OnInit {
       this.expandSet.delete(id);
     }
   }
-
-  listOfData = [
-    {
-      id: 1,
-      name: 'John Brown',
-      age: 32,
-      expand: false,
-      address: 'New York No. 1 Lake Park',
-      description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.'
-    },
-  ];
-
 
 }

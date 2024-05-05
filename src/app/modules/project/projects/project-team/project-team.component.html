@@ -1,71 +1,197 @@
 <div class="content-body">
   <div class="header-map">
     <h6>Danh sách các nhóm</h6>
-    <p>
-      <img src="/assets/icon/project/Icon.svg" alt="">
-    </p>
+
+    <div class="action-content">
+
+      <div class="text-button-export">
+        <button nz-dropdown nzTrigger="click" [nzDropdownMenu]="export">
+          Xuất tập tin
+          <span>
+            <img src="/assets/icon/project/arrow-down.svg" alt="">
+          </span>
+        </button>
+      </div>
+      <nz-dropdown-menu #export="nzDropdownMenu">
+        <div nz-menu>
+          <div class="css-xhdqsk">Chọn chức năng</div>
+          <button class="css-1m7bkbm" type="button" nz-menu-item>
+            <span class="css-12dc8u4">
+              <span nz-icon nzType="file-jpg" nzTheme="outline"></span>
+              <span class="css-1uww2tp">
+                <span class="css-5mekwu">Xuất dạng JSON</span>
+              </span>
+            </span>
+          </button>
+          <button class="css-1m7bkbm" type="button" nz-menu-item>
+            <span class="css-12dc8u4">
+              <span nz-icon nzType="file-excel" nzTheme="outline"></span>
+              <span class="css-1uww2tp">
+                <span class="css-5mekwu">Xuất dạng CSV</span>
+              </span>
+            </span>
+          </button>
+          <button class="css-1m7bkbm" type="button" nz-menu-item>
+            <span class="css-12dc8u4">
+              <span nz-icon nzType="qrcode" nzTheme="outline"></span>
+              <span class="css-1uww2tp">
+                <span class="css-5mekwu">Hiển thị mã QR</span>
+              </span>
+            </span>
+          </button>
+        </div>
+      </nz-dropdown-menu>
+      <div class="text-button-import">
+        <button nz-dropdown nzTrigger="click" [nzDropdownMenu]="import">
+          Nhập tập tin
+          <span>
+            <img src="/assets/icon/project/arrow-down.svg" alt="">
+          </span>
+        </button>
+      </div>
+      <nz-dropdown-menu #import="nzDropdownMenu">
+        <div nz-menu>
+          <div class="css-xhdqsk">Chọn chức năng</div>
+          <button class="css-1m7bkbm" type="button" nz-menu-item>
+            <span class="css-12dc8u4">
+              <span nz-icon nzType="file-jpg" nzTheme="outline"></span>
+              <span class="css-1uww2tp">
+                <span class="css-5mekwu">Nhập dạng JSON</span>
+              </span>
+            </span>
+          </button>
+          <button class="css-1m7bkbm" type="button" nz-menu-item>
+            <span class="css-12dc8u4">
+              <span nz-icon nzType="file-excel" nzTheme="outline"></span>
+              <span class="css-1uww2tp">
+                <span class="css-5mekwu">Nhập dạng CSV</span>
+              </span>
+            </span>
+          </button>
+        </div>
+      </nz-dropdown-menu>
+    </div>
   </div>
 
   <nz-table
-  [nzShowPagination]="false"
-  #nzTable [nzData]="listOfData"
-  nzTableLayout="fixed"
+    [nzShowPagination]="false"
+    #nzTable [nzData]="teams"
+    nzTableLayout="fixed"
+    class="scrollable-table"
   >
     <thead>
       <tr>
-        <th nzWidth="50px"></th>
-        <th>Tên dự án</th>
+        <th nzWidth="200px">
+          <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input type="text" nz-input placeholder="Tim kiếm nhóm và thanh viên nhóm" />
+          </nz-input-group>
+          <ng-template #suffixIconSearch>
+            <img src="/assets/icon/project/search-normal.svg" width="18px" height="18px"  nz-icon alt="">
+          </ng-template>
+      </th>
         <th>Tên nhóm</th>
-        <th>Trưởng nhóm</th>
-        <th style="text-align: center;">Thao tác</th>
+        <th>Số lượng thành viên</th>
+        <th>Ngày tạo</th>
+        <th style="text-align: center;">
+          Thao tác
+        </th>
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let data of nzTable.data">
+      <ng-container *ngFor="let team of teams">
         <tr>
-          <td [nzExpand]="expandSet.has(data.id)" [nzExpandIcon]="expandIcon"></td>
-          <td>{{ data.name }}</td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.address }}</td>
+          <td [nzExpand]="expandSet.has(team.teamID)" [nzExpandIcon]="expandIcon"></td>
+          <td>{{ team.teamName  }}</td>
+          <td>{{ getMemberCount(team) }}</td>
+          <td>{{ team.createdDate | date:'dd/MM/yyyy' }}</td>
           <td style="display: flex; justify-content: space-evenly; align-items: center; cursor: pointer; height: 55px;">
-            <span nz-icon nzType="delete" nzTheme="outline"></span>
-            <span nz-icon nzType="form" nzTheme="outline"></span>
+            <span nz-icon nzType="delete" nzTheme="outline" (click)="showDelete()"></span>
+            <span nz-icon nzType="form" nzTheme="outline" (click)="showUpdate()"></span>
             <span nz-icon nzType="copy" nzTheme="outline"></span>
           </td>
         </tr>
-        <tr [nzExpand]="expandSet.has(data.id)">
-          <span nz-icon nzType="arrow-right" nzTheme="outline" style="margin: 10px;"></span>
-          {{ data.description }}
+        <tr *ngFor="let member of team.members" [nzExpand]="expandSet.has(team.teamID)">
+          <td>
+              - MNV : {{ member.userID }} <br>
+              - Họ và tên :  {{ member.fullName }} <br>
+              - Ngày vào nhóm : {{ member.joinDate | date:'dd/MM/yyyy' }}
+          </td>
         </tr>
-        <tr [nzExpand]="expandSet.has(data.id)">
-          <span nz-icon nzType="arrow-right" nzTheme="outline" style="margin: 10px;"></span>
-          {{ data.description }}
-        </tr>
-        <tr [nzExpand]="expandSet.has(data.id)">
-          <span nz-icon nzType="arrow-right" nzTheme="outline" style="margin: 10px;"></span>
-          {{ data.description }}
-        </tr>
-        <tr [nzExpand]="expandSet.has(data.id)">
-          <span nz-icon nzType="arrow-right" nzTheme="outline" style="margin: 10px;"></span>
-          {{ data.description }}
-        </tr>
+
         <ng-template #expandIcon>
           <span
             nz-icon
-            *ngIf="!expandSet.has(data.id)"
+            *ngIf="!expandSet.has(team.teamID)"
             nzType="plus-circle"
             nzTheme="outline"
-            (click)="onExpandChange(data.id, true)"
+            (click)="onExpandChange(team.teamID, true)"
           ></span>
           <span
             nz-icon
-            *ngIf="expandSet.has(data.id)"
+            *ngIf="expandSet.has(team.teamID)"
             nzType="minus-circle"
             nzTheme="outline"
-            (click)="onExpandChange(data.id, false)"
+            (click)="onExpandChange(team.teamID, false)"
           ></span>
         </ng-template>
+
       </ng-container>
     </tbody>
   </nz-table>
 </div>
+
+
+
+
+<!-- Modal Delete -->
+<nz-modal
+  [(nzVisible)]="isDelete"
+  [nzFooter]="null"
+  nzWidth="480px"
+>
+<ng-container *nzModalContent>
+  <div class="deleteModal">
+    <div class="warring" style="margin-bottom: 10px;">
+      <img src="/assets/icon/project/icon-warring.svg" alt="">
+    </div>
+    <h5>Xóa dự án</h5>
+    <p>Dự án bị xóa sẽ biến mất khỏi hệ thống bao gồm tất cả các thông tin đã lưu và các tài nguyên mà dự án đó đang sở hữu. Bạn chắc chắn muốn xóa dự án?</p>
+  </div>
+  <div class="footer">
+    <button (click)="isDelete = false" class="footer-cancel">Hủy</button>
+    <button class="footer-add">Xác nhận</button>
+  </div>
+</ng-container>
+</nz-modal>
+
+
+
+<!-- Modal Update -->
+<nz-modal
+  [(nzVisible)]="isUpdate"
+  [nzFooter]="null"
+  nzTitle="Chỉnh sửa thông tin hợp đồng dự án "
+  nzWidth="800px"
+>
+<ng-container *nzModalContent>
+  <div class="form-project">
+    <form>
+      <div class="scrollable-table-form-project">
+        <div class="block-form">
+          <label for=""> Tên nhóm</label>
+          <input style="width: 100%;" nz-input  nzSize="large" />
+        </div>
+        <div class="block-form">
+          <label for="">Ngày khởi tạo</label>
+          <nz-date-picker nzSize="large" nzPlaceHolder="Chọn ngày tháng năm" style="width: 100%;" [nzFormat]="dateFormat" name="createdDate" required></nz-date-picker>
+        </div>
+      </div>
+      <div class="footer">
+        <button (click)="isUpdate = false" class="footer-cancel">Hủy</button>
+        <button class="footer-add">Xác nhận</button>
+      </div>
+
+    </form>
+  </div>
+</ng-container>
+</nz-modal>

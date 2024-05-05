@@ -14,8 +14,10 @@ import { SummaryComponent } from './tasks/summary/summary.component';
 import { TimlineComponent } from './tasks/timline/timline.component';
 import { ProjectComponent } from './project.component';
 import { IssuesComponent } from './tasks/issues/issues.component';
-import { AvatarComponent } from './tasks/avatar/avatar.component';
+import { AvatarComponent } from './tasks/board/board.component';
 import { DashboardComponent } from './projects/dashboard/dashboard.component';
+import { ProjectSettingComponent } from './projects/project-setting/project-setting.component';
+import { SettingServiceComponent } from './setting/setting-service/setting-service.component';
 
 
 export const routes: Routes = [
@@ -51,7 +53,9 @@ export const routes: Routes = [
 
       { path: 'work-calendar', component: CalendarComponent },
 
-      { path: 'work-avatar', component: AvatarComponent }
+      { path: 'work-avatar', component: AvatarComponent },
+
+      { path:'setting', component:SettingServiceComponent},
     ],
   },
 ];

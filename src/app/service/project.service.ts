@@ -9,7 +9,7 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
 
-  private projectUrl = 'https://taskmasternodejs.vercel.app/project';
+  private projectUrl = 'http://localhost:3000/project';
 
   getProejct(): Observable<any> {
     return this.http.get<any>(`${this.projectUrl}`);

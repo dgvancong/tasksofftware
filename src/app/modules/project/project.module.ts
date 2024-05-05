@@ -15,10 +15,17 @@ import { RouterModule } from '@angular/router';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzCalendarModule } from 'ng-zorro-antd/calendar';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+
 
 
 // Components
-import { AvatarComponent } from './tasks/avatar/avatar.component';
+import { AvatarComponent } from './tasks/board/board.component';
 import { CalendarComponent } from './tasks/calendar/calendar.component';
 import { FormComponent } from './tasks/form/form.component';
 import { IssuesComponent } from './tasks/issues/issues.component';
@@ -39,6 +46,8 @@ import { ProjectSettingComponent } from './projects/project-setting/project-sett
 import  { ProjectTeamComponent } from './projects/project-team/project-team.component';
 import { ProjectProfileComponent } from './projects/project-profile/project-profile.component';
 import { ProjectStatisComponent } from './projects/project-statis/project-statis.component';
+import { SettingServiceComponent } from './setting/setting-service/setting-service.component';
+import { ListComponent } from './tasks/list/list.component';
 
 
 
@@ -69,7 +78,9 @@ import { ProjectStatisComponent } from './projects/project-statis/project-statis
     ProjectNotificationComponent,
     ProjectTeamComponent,
     ProjectProfileComponent,
-    ProjectStatisComponent
+    ProjectStatisComponent,
+    SettingServiceComponent,
+    ListComponent
   ],
   imports: [
     CommonModule,
@@ -88,7 +99,14 @@ import { ProjectStatisComponent } from './projects/project-statis/project-statis
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    NzPaginationModule
+    NzPaginationModule,
+    NzInputModule,
+    NzCheckboxModule,
+    NzDatePickerModule,
+    NzCalendarModule,
+    NzMessageModule,
+    NzSelectModule
+
   ],
   exports: [
     AvatarComponent,
@@ -111,7 +129,9 @@ import { ProjectStatisComponent } from './projects/project-statis/project-statis
     ProjectNotificationComponent,
     ProjectTeamComponent,
     ProjectProfileComponent,
-    ProjectStatisComponent
+    ProjectStatisComponent,
+    SettingServiceComponent,
+    ListComponent
   ]
 })
 export class ProjectModule { }

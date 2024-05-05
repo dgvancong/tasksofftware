@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Renderer2 } from '@angular/core';
 import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-summary',
-  standalone: false,
   templateUrl: './summary.component.html',
-  styleUrl: './summary.component.scss'
+  styleUrls: ['./summary.component.scss']
 })
-export class SummaryComponent implements OnInit {
+export class SummaryComponent implements AfterViewInit   {
 
-  ngOnInit(): void {
+  statusView: any = 1;
+
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
+
+  ngAfterViewInit() {
     this.drawChart();
-    this.drowChart()
+    this.drowChart();
   }
 
   drawChart() {
-    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+    const ctx = this.elementRef.nativeElement.querySelector('#myChart');
     const myChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -45,8 +48,9 @@ export class SummaryComponent implements OnInit {
       }
     });
   }
-  drowChart(){
-    const ctx = document.getElementById('trangthai') as HTMLCanvasElement;
+
+  drowChart() {
+    const ctx = this.elementRef.nativeElement.querySelector('#trangthai');
     const trangthai = new Chart(ctx, {
       type: 'bar',
       data: {

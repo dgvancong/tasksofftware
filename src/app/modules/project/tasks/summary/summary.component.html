@@ -13,188 +13,211 @@
       <h5>Task SoftWare</h5>
     </div>
     <div class="bg-header-text-button">
-      <button> Add Link Jira</button>
+      <button> Thêm công việc</button>
     </div>
   </div>
   <div class="bg-header-tabs">
     <nz-tabset>
-      <nz-tab nzTitle="Tổng quan" routerLink="/project/work-summary"></nz-tab>
-      <nz-tab nzTitle="Bảng"></nz-tab>
-      <nz-tab nzTitle="Danh sách"></nz-tab>
-      <nz-tab nzTitle="Lịch"></nz-tab>
-      <nz-tab nzTitle="Thời gian"></nz-tab>
-      <nz-tab nzTitle="Phê duyệt"></nz-tab>
-      <nz-tab nzTitle="Hình thức"></nz-tab>
-      <nz-tab nzTitle="Trang"></nz-tab>
-      <nz-tab nzTitle="Tệp đính kèm"></nz-tab>
-      <nz-tab nzTitle="Vấn đề"></nz-tab>
-      <nz-tab nzTitle="Báo cáo"></nz-tab>
-      <nz-tab nzTitle="Thiết lập"></nz-tab>
+      <nz-tab (nzClick)="statusView = 1" nzTitle="Tổng quan"></nz-tab>
+      <nz-tab (nzClick)="statusView = 2" nzTitle="Bảng"></nz-tab>
+      <nz-tab (nzClick)="statusView = 3" nzTitle="Danh sách"></nz-tab>
+      <nz-tab (nzClick)="statusView = 4" nzTitle="Lịch"></nz-tab>
+      <nz-tab (nzClick)="statusView = 5" nzTitle="Thời gian"></nz-tab>
+      <nz-tab (nzClick)="statusView = 6" nzTitle="Phê duyệt"></nz-tab>
+      <nz-tab (nzClick)="statusView = 7" nzTitle="Hình thức"></nz-tab>
+      <nz-tab (nzClick)="statusView = 8" nzTitle="Trang"></nz-tab>
+      <nz-tab (nzClick)="statusView = 9" nzTitle="Tệp đính kèm"></nz-tab>
+      <nz-tab (nzClick)="statusView = 10" nzTitle="Vấn đề"></nz-tab>
+      <nz-tab (nzClick)="statusView = 11" nzTitle="Báo cáo"></nz-tab>
+      <nz-tab (nzClick)="statusView = 12" nzTitle="Thiết lập"></nz-tab>
     </nz-tabset>
   </div>
 </div>
 
-<div class="content-body">
+<div class="content-body" >
+  <div class="scrollable-table">
+    <ng-container *ngIf="statusView === 1">
+      <div class="content-filter">
+        <div class="content-filter-left">
+          <button class="filter-time">24 giờ</button>
+          <button class="filter-time">7 ngày</button>
+          <button class="filter-time">30 ngày</button>
+          <button class="filter-time">12 tháng</button>
+        </div>
+        <div class="content-filter-right">
+          <button class="filter-work">Lịch trình</button>
+          <button class="filter-work">Bộ lọc</button>
+        </div>
+      </div>
+      <div class="bg-card-app">
+        <div class="bg-card-app-sketch">
+          <h6>Dự án</h6>
+          <div class="chart-contact">
+            <div class="chart-progress">
+              <nz-progress
+              nzType="circle"
+              [nzPercent]="90"
+              [nzWidth]="100"
+              [nzStrokeColor]="{ '0%': '#108ee9', '50%': '#2db7f5', '100%': '#87d068' }"
+              ></nz-progress>
+            </div>
+            <div class="contact-progress">
 
-  <div class="content-filter">
-    <div class="content-filter-left">
-      <button class="filter-time">24 giờ</button>
-      <button class="filter-time">7 ngày</button>
-      <button class="filter-time">30 ngày</button>
-      <button class="filter-time">12 tháng</button>
-    </div>
-    <div class="content-filter-right">
-      <button class="filter-work">Lịch trình</button>
-      <button class="filter-work">Bộ lọc</button>
-    </div>
+              <div class="contact-progress-flex">
+                <span>
+                  <img src="/assets/icon/project/Frame 27.svg" alt="">
+                  Pass
+                </span>
+                <p>16%</p>
+              </div>
+              <div class="contact-progress-flex">
+                <span>
+                  <img src="/assets/icon/project/Frame 93.svg" alt="">
+                  Failure
+                </span>
+                <p>16%</p>
+              </div>
+              <div class="contact-progress-flex">
+                <span>
+                  <img src="/assets/icon/project/Frame 94.svg" alt="">
+                  Not test
+                </span>
+                <p>16%</p>
+              </div>
+              <div class="contact-progress-flex">
+                <span>
+                  <img src="/assets/icon/project/Frame 96.svg" alt="">
+                  Not started
+                </span>
+                <p>16%</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-card-app-sketch">
+          <h6>Công việc</h6>
+          <div class="chart-contact">
+            <div class="chart-progress">
+              <nz-progress
+              nzType="circle"
+              [nzPercent]="90"
+              [nzWidth]="100"
+              [nzStrokeColor]="{ '0%': '#108ee9', '50%': '#2db7f5', '100%': '#87d068' }"
+              ></nz-progress>
+            </div>
+            <div class="contact-progress">
+
+              <div class="contact-progress-flex">
+                <span>
+                  <img src="/assets/icon/project/Frame 27.svg" alt="">
+                  Pass
+                </span>
+                <p>16%</p>
+              </div>
+              <div class="contact-progress-flex">
+                <span>
+                  <img src="/assets/icon/project/Frame 93.svg" alt="">
+                  Failure
+                </span>
+                <p>16%</p>
+              </div>
+              <div class="contact-progress-flex">
+                <span>
+                  <img src="/assets/icon/project/Frame 94.svg" alt="">
+                  Not test
+                </span>
+                <p>16%</p>
+              </div>
+              <div class="contact-progress-flex">
+                <span>
+                  <img src="/assets/icon/project/Frame 96.svg" alt="">
+                  Not started
+                </span>
+                <p>16%</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-card-app-sketch">
+          <h6 style="margin: 0;">Trạng thái</h6>
+          <div>
+            <canvas id="trangthai" width="312" height="154"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-card-app-sketch">
+          <h6>Nhiệm vụ</h6>
+          <div class="sketch-GB">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kiểu</th>
+                  <th>Phân bổ</th>
+                  <th>Điểm</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="text-align: center; margin-bottom: 5px;">
+                  <td>
+                    <img src="/assets/icon/project/check-true.svg" alt="">
+                    Nhiệm vụ chủ
+                  </td>
+                  <td> 100%</td>
+                  <td > 1</td>
+                </tr>
+                <tr style="text-align: center;">
+                  <td>
+                    <img src="/assets/icon/project/check-fail.svg" alt="">
+                    Nhiệm vụ phụ
+                  </td>
+                  <td> 0%</td>
+                  <td> 0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <div class="high-chart">
+        <div class="header-map">
+          <h6>Biểu đồ dữ liệu</h6>
+          <p>
+            <img src="/assets/icon/project/Icon.svg" alt="">
+          </p>
+        </div>
+        <div>
+          <canvas id="myChart" width="400" height="150"></canvas>
+        </div>
+
+      </div>
+    </ng-container>
   </div>
-
-  <div class="bg-card-app">
-    <div class="bg-card-app-sketch">
-      <h6>Dự án</h6>
-      <div class="chart-contact">
-        <div class="chart-progress">
-          <nz-progress
-          nzType="circle"
-          [nzPercent]="90"
-          [nzWidth]="100"
-          [nzStrokeColor]="{ '0%': '#108ee9', '50%': '#2db7f5', '100%': '#87d068' }"
-          ></nz-progress>
-        </div>
-        <div class="contact-progress">
-
-          <div class="contact-progress-flex">
-            <span>
-              <img src="/assets/icon/project/Frame 27.svg" alt="">
-              Pass
-            </span>
-            <p>16%</p>
-          </div>
-          <div class="contact-progress-flex">
-            <span>
-              <img src="/assets/icon/project/Frame 93.svg" alt="">
-              Failure
-            </span>
-            <p>16%</p>
-          </div>
-          <div class="contact-progress-flex">
-            <span>
-              <img src="/assets/icon/project/Frame 94.svg" alt="">
-              Not test
-            </span>
-            <p>16%</p>
-          </div>
-          <div class="contact-progress-flex">
-            <span>
-              <img src="/assets/icon/project/Frame 96.svg" alt="">
-              Not started
-            </span>
-            <p>16%</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="bg-card-app-sketch">
-      <h6>Công việc</h6>
-      <div class="chart-contact">
-        <div class="chart-progress">
-          <nz-progress
-          nzType="circle"
-          [nzPercent]="90"
-          [nzWidth]="100"
-          [nzStrokeColor]="{ '0%': '#108ee9', '50%': '#2db7f5', '100%': '#87d068' }"
-          ></nz-progress>
-        </div>
-        <div class="contact-progress">
-
-          <div class="contact-progress-flex">
-            <span>
-              <img src="/assets/icon/project/Frame 27.svg" alt="">
-              Pass
-            </span>
-            <p>16%</p>
-          </div>
-          <div class="contact-progress-flex">
-            <span>
-              <img src="/assets/icon/project/Frame 93.svg" alt="">
-              Failure
-            </span>
-            <p>16%</p>
-          </div>
-          <div class="contact-progress-flex">
-            <span>
-              <img src="/assets/icon/project/Frame 94.svg" alt="">
-              Not test
-            </span>
-            <p>16%</p>
-          </div>
-          <div class="contact-progress-flex">
-            <span>
-              <img src="/assets/icon/project/Frame 96.svg" alt="">
-              Not started
-            </span>
-            <p>16%</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="bg-card-app-sketch">
-      <h6 style="margin: 0;">Trạng thái</h6>
-      <div>
-        <canvas id="trangthai" width="312" height="154"></canvas>
-      </div>
-    </div>
-
-    <div class="bg-card-app-sketch">
-      <h6>Nhiệm vụ</h6>
-      <div class="sketch-GB">
-        <table>
-          <thead>
-            <tr>
-              <th>Kiểu</th>
-              <th>Phân bổ</th>
-              <th>Điểm</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="text-align: center; margin-bottom: 5px;">
-              <td>
-                <img src="/assets/icon/project/check-true.svg" alt="">
-                Nhiệm vụ chủ
-              </td>
-              <td> 100%</td>
-              <td > 1</td>
-            </tr>
-            <tr style="text-align: center;">
-              <td>
-                <img src="/assets/icon/project/check-fail.svg" alt="">
-                Nhiệm vụ phụ
-              </td>
-              <td> 0%</td>
-              <td> 0</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="high-chart">
-    <div class="header-map">
-      <h6>Biểu đồ dữ liệu</h6>
-      <p>
-        <img src="/assets/icon/project/Icon.svg" alt="">
-      </p>
-    </div>
-    <div>
-      <canvas id="myChart" width="400" height="150"></canvas>
-    </div>
-
-  </div>
-
 </div>
+
+<app-board *ngIf="statusView === 2"></app-board>
+
+<app-list *ngIf="statusView === 3"></app-list>
+
+<app-calendar *ngIf="statusView === 4"></app-calendar>
+
+<app-timline *ngIf="statusView ===5"></app-timline>
+
+<app-project-statis *ngIf="statusView === 6"></app-project-statis>
+
+<app-form *ngIf="statusView === 7"></app-form>
+
+<app-pages *ngIf="statusView ===8"></app-pages>
+
+<app-shortcuts *ngIf="statusView === 9"></app-shortcuts>
+
+<app-issues *ngIf="statusView === 10"></app-issues>
+
+<app-reports *ngIf="statusView ===11"></app-reports>
+
+<app-settings *ngIf="statusView === 12"></app-settings>
+
