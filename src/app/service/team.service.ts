@@ -9,8 +9,6 @@ export class TeamService {
 
   constructor(private http: HttpClient) { }
 
-  private teamUrl = 'https://taskmasternodejs.vercel.app/team';
-
   private apiUrl = 'http://localhost:3000/team';
 
   getTeams(): Observable<any> {
@@ -22,11 +20,19 @@ export class TeamService {
   }
 
   addTeammenber(teammenber: any): Observable<any> {
-    return this.http.post<any>(`${this.teamUrl}/add_team_member`, teammenber);
+    return this.http.post<any>(`${this.apiUrl}/add_team_member`, teammenber);
   }
-
+  addTeammenbers(teamData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/add_team`, teamData);
+  }
+  addTeam(teamName: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/add_team`, { teamName });
+  }
   getProjectTeamID(projectID: any): Observable<any> {
-    return this.http.get(`${this.teamUrl}/projectteam/${projectID}`);
+    return this.http.get(`${this.apiUrl}/projectteam/${projectID}`);
+  }
+  deleteTeam(teamId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/delete_team/${teamId}`);
   }
 
 }

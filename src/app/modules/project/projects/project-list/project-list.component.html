@@ -38,7 +38,7 @@
           </span>
           <div class="cEvSzd">
             <p class="hVfRVu">
-              <a href="/user/work/14">{{project.projectName}}</a>
+              <a [routerLink]="['/project/work-summary/'+ project.projectID]">{{project.projectName}}</a>
             </p>
             <p class="_1wyb1skh"> Doanh nghiệp được quản lý theo nhóm </p>
           </div>
@@ -109,9 +109,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of projects">
-          <td routerLink="/project/work-summary" style="text-align: center;">
-            <span style="margin-top: 5px;">{{ data.projectName }}</span>
-          </td>
+          <td [routerLink]="['/user/work-summary/'+ data.projectID]" style="text-align: center;">{{ data.projectName }}</td>
           <td style="text-align: center;">TSP {{ data.projectID }}</td>
           <td style="text-align: center;">{{ data.projectDescription }}</td>
           <td style="text-align: center;">{{ data.teamFullName }}</td>

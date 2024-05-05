@@ -1,3 +1,24 @@
+<div class="bg-title">
+  <div class="header-location">
+    <p>
+      Hệ thống nhân sự
+      <span style="margin: 8px;">
+        <img src="/assets/icon/project/Icon-arrow.svg" alt="">
+      </span>
+      <a href="">Quản lý nhóm</a>
+    </p>
+  </div>
+  <div class="bg-header-text">
+
+    <div class="header-text">
+      <h3> QL Nhóm</h3>
+    </div>
+    <div class="bg-header-text-button">
+      <button (click)="showAddTeam()">Tạo nhóm</button>
+    </div>
+  </div>
+</div>
+
 <div class="content-body">
   <div class="header-map">
     <h6>Danh sách các nhóm</h6>
@@ -89,9 +110,9 @@
             <img src="/assets/icon/project/search-normal.svg" width="18px" height="18px"  nz-icon alt="">
           </ng-template>
       </th>
-        <th>Tên nhóm</th>
-        <th>Số lượng thành viên</th>
-        <th>Ngày tạo</th>
+        <th style="text-align: center;">Tên nhóm</th>
+        <th style="text-align: center;">Số lượng thành viên</th>
+        <th style="text-align: center;">Ngày tạo</th>
         <th style="text-align: center;">
           Thao tác
         </th>
@@ -105,7 +126,7 @@
           <td>{{ getMemberCount(team) }}</td>
           <td>{{ team.createdDate | date:'dd/MM/yyyy' }}</td>
           <td style="display: flex; justify-content: space-evenly; align-items: center; cursor: pointer; height: 55px;">
-            <span nz-icon nzType="delete" nzTheme="outline" (click)="showDelete()"></span>
+            <span nz-icon nzType="delete" nzTheme="outline" (click)="showDelete(team)"></span>
             <span nz-icon nzType="form" nzTheme="outline" (click)="showUpdate()"></span>
             <span nz-icon nzType="copy" nzTheme="outline"></span>
           </td>
@@ -154,19 +175,19 @@
     <div class="warring" style="margin-bottom: 10px;">
       <img src="/assets/icon/project/icon-warring.svg" alt="">
     </div>
-    <h5>Xóa dự án</h5>
-    <p>Dự án bị xóa sẽ biến mất khỏi hệ thống bao gồm tất cả các thông tin đã lưu và các tài nguyên mà dự án đó đang sở hữu. Bạn chắc chắn muốn xóa dự án?</p>
+    <h5>Xóa nhóm</h5>
+    <p>Nhóm của bạn bị xóa sẽ biến mất khỏi hệ thống bao gồm tất cả các thông tin đã lưu và các tài nguyên mà dự án đó đang sở hữu. Bạn chắc chắn muốn xóa dự án?</p>
   </div>
   <div class="footer">
     <button (click)="isDelete = false" class="footer-cancel">Hủy</button>
-    <button class="footer-add">Xác nhận</button>
+    <button class="footer-add" (click)="okDelete()">Xác nhận</button>
   </div>
 </ng-container>
 </nz-modal>
 
 
 
-<!-- Modal Update -->
+<!-- Modal Sửa -->
 <nz-modal
   [(nzVisible)]="isUpdate"
   [nzFooter]="null"
@@ -189,6 +210,37 @@
       <div class="footer">
         <button (click)="isUpdate = false" class="footer-cancel">Hủy</button>
         <button class="footer-add">Xác nhận</button>
+      </div>
+
+    </form>
+  </div>
+</ng-container>
+</nz-modal>
+
+
+<!-- Modal Thêm -->
+<nz-modal
+  [(nzVisible)]="isAddTeam"
+  [nzFooter]="null"
+  nzTitle="Chỉnh sửa thông tin hợp đồng dự án "
+  nzWidth="800px"
+>
+<ng-container *nzModalContent>
+  <div class="form-project">
+    <form>
+      <div class="scrollable-table-form-project">
+        <div class="block-form">
+          <label for=""> Tên nhóm</label>
+          <input style="width: 100%;" nz-input  nzSize="large" id="teamName" name="teamName" [(ngModel)]="teamName" />
+        </div>
+        <div class="block-form">
+          <label for="">Ngày khởi tạo</label>
+          <nz-date-picker nzSize="large" nzPlaceHolder="Chọn ngày tháng năm" style="width: 100%;" [nzFormat]="dateFormat" name="createdDate" required></nz-date-picker>
+        </div>
+      </div>
+      <div class="footer">
+        <button (click)="isAddTeam = false" class="footer-cancel">Hủy</button>
+        <button class="footer-add" (click)="okAddTeam()">Xác nhận</button>
       </div>
 
     </form>

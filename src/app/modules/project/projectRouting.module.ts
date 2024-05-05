@@ -16,8 +16,9 @@ import { ProjectComponent } from './project.component';
 import { IssuesComponent } from './tasks/issues/issues.component';
 import { AvatarComponent } from './tasks/board/board.component';
 import { DashboardComponent } from './projects/dashboard/dashboard.component';
-import { ProjectSettingComponent } from './projects/project-setting/project-setting.component';
 import { SettingServiceComponent } from './setting/setting-service/setting-service.component';
+import { ProjectNotificationComponent } from './projects/project-notification/project-notification.component';
+import { ProjectTeamComponent } from './projects/project-team/project-team.component';
 
 
 export const routes: Routes = [
@@ -33,29 +34,33 @@ export const routes: Routes = [
 
       { path: 'project-list', component: ProjectListComponent },
 
+      { path: 'project-team', component: ProjectTeamComponent },
+
+      { path: 'project-user', component: ProjectNotificationComponent },
+
       { path: 'project-view', component: ProjectViewsComponent },
 
       { path: 'work-timline', component: TimlineComponent },
 
-      { path: 'work-summary', component: SummaryComponent },
+      { path: 'work-summary/:id', component: SummaryComponent },
 
-      { path: 'work-shortcuts', component: ShortcutsComponent },
+      { path: 'work-shortcuts/:id', component: ShortcutsComponent },
 
-      { path: 'work-setting', component: SettingsComponent },
+      { path: 'work-setting/:id', component: SettingsComponent },
 
-      { path: 'work-report', component: ReportsComponent },
+      { path: 'work-report/:id', component: ReportsComponent },
 
-      { path: 'work-pages', component: PagesComponent },
+      { path: 'work-pages/:id', component: PagesComponent },
 
-      { path: 'work-issues', component: IssuesComponent },
+      { path: 'work-issues/:id', component: IssuesComponent },
 
-      { path: 'work-form', component: FormComponent },
+      { path: 'work-form/:id', component: FormComponent },
 
-      { path: 'work-calendar', component: CalendarComponent },
+      { path: 'work-calendar/:id', component: CalendarComponent },
 
-      { path: 'work-avatar', component: AvatarComponent },
+      { path: 'work-avatar/:id', component: AvatarComponent },
 
-      { path:'setting', component:SettingServiceComponent},
+      { path:'setting/:id', component:SettingServiceComponent},
     ],
   },
 ];

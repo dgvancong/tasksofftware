@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -6,12 +7,22 @@ import Chart from 'chart.js/auto';
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.scss']
 })
-export class SummaryComponent implements AfterViewInit   {
+export class SummaryComponent implements AfterViewInit, OnInit   {
 
   statusView: any = 1;
+  projectID : number = 0;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
+  constructor(
+    private elementRef: ElementRef,
+    private route: ActivatedRoute,
+  ) { }
 
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.projectID = params['id'];
+    });
+  }
   ngAfterViewInit() {
     this.drawChart();
     this.drowChart();

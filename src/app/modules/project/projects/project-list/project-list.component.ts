@@ -5,6 +5,7 @@ import { UserService } from '../../../../service/user.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { formatDate, DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -54,10 +55,14 @@ export class ProjectListComponent implements OnInit {
     private datePipe: DatePipe,
     private teamService: TeamService,
     private userService: UserService,
+    private route: ActivatedRoute,
   ){}
 
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.projectID = params['id'];
+    });
     this.getProejct();
     this.fetchTeams();
     this.fetchUser();
@@ -130,7 +135,6 @@ export class ProjectListComponent implements OnInit {
           'Danh sách dự án đã được cập nhật.'
         );
         localStorage.setItem('token', response.token);
-
         this.getProejct();
       },
       (error) =>
@@ -171,7 +175,6 @@ export class ProjectListComponent implements OnInit {
     this.userService.getUsers().subscribe(
       (response) => {
         this.users = response;
-        console.log(response)
       },
       (error) => {
         console.error('Thông tin dữ liệu người dùng bị lỗi:', error);
