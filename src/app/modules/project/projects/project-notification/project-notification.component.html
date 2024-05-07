@@ -37,26 +37,26 @@
     >
       <thead>
         <tr>
-          <th style="text-align: center;">Tên người dùng</th>
-          <th style="text-align: center;" [nzWidth]="'250px'">Email</th>
-          <th style="text-align: center;">Số điện thoại</th>
-          <th style="text-align: center;">Quyền</th>
-          <th style="text-align: center;">Ngày bắt đầu</th>
-          <th style="text-align: center;">Trạng thái</th>
-          <th style="text-align: center;">Thao tác</th>
+          <th>Tên người dùng</th>
+          <th [nzWidth]="'250px'">Email</th>
+          <th>Số điện thoại</th>
+          <th>Quyền</th>
+          <th>Ngày bắt đầu</th>
+          <th>Trạng thái</th>
+          <th>Thao tác</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of users">
-          <td routerLink="/project/work-summary" style="text-align: center;">
+          <td routerLink="/project/work-summary">
             <span style="margin-top: 5px;">{{ data.fullName }}</span>
           </td>
-          <td style="text-align: center;">{{ data.emailAddress }}</td>
-          <td style="text-align: center;">{{ data.phoneNumber }}</td>
-          <td style="text-align: center;">{{ data.roleID }}</td>
-          <td style="text-align: center;">{{ data.createdDate | date: 'dd-MM-yyyy'}}</td>
-          <td style="text-align: center;"><nz-progress [nzPercent]="data.progress" [nzShowInfo]="false"></nz-progress></td>
-          <td style="align-items: center; cursor: pointer;">
+          <td>{{ data.emailAddress }}</td>
+          <td>{{ data.phoneNumber }}</td>
+          <td>{{ data.roleID }}</td>
+          <td>{{ data.createdDate | date: 'dd-MM-yyyy'}}</td>
+          <td><nz-progress [nzPercent]="data.progress" [nzShowInfo]="false"></nz-progress></td>
+          <td style="cursor: pointer;">
             <span nz-icon nzType="ellipsis" nzTheme="outline" nz-dropdown nzTrigger="click" [nzDropdownMenu]="import" style="text-align: center;"></span>
           </td>
 

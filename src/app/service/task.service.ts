@@ -9,7 +9,7 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  private taskUrl = 'https://taskmasternodejs.vercel.app/task';
+  private taskUrl = 'http://localhost:3000/task';
 
   getTask(): Observable<any> {
     return this.http.get<any>(`${this.taskUrl}`);

@@ -30,4 +30,7 @@ export class ProjectService {
   addProject(work: any): Observable<any> {
     return this.http.post<any>(`${this.projectUrl}/add`, work);
   }
+  getProjectTeamID(projectID: any): Observable<any> {
+    return this.http.get(`${this.projectUrl}/projectteam/${projectID}`);
+  }
 }

@@ -139,7 +139,7 @@ export class ProjectListComponent implements OnInit {
       },
       (error) =>
         {this.notification.error(
-          'Thêm án không thành công',
+          'Thêm dự án không thành công',
           'Vui lòng kiểm tra lại thông tin dự án.'
         );
       }

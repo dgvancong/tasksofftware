@@ -1,6 +1,14 @@
+import { TeamService } from './../../../../service/team.service';
+import { UserService } from './../../../../service/user.service';
+import { TaskService } from './../../../../service/task.service';
+import { ProjectService } from './../../../../service/project.service';
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Chart from 'chart.js/auto';
+import { formatDate } from '@angular/common';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-summary',
@@ -11,10 +19,39 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
 
   statusView: any = 1;
   projectID : number = 0;
+  projects: any[] = [];
+  projectData: any[] = [];
+  users: any[] = [];
+  tasks: any[] = [];
+  isTask = false;
+  projectId :any;
+  TaskData: any;
+  teamData: any;
+  teamID : any;
+
+  task = {
+    projectID: '',
+    taskType: '',
+    summary: '',
+    userID: '',
+    status: 'To Do',
+    createdDate: '',
+    endDate: '',
+    priority: '',
+    description: '',
+    taskDescription: 'Create marketing materials for campaign',
+    actualHoursSpent: '',
+    taskManagerID: ''
+  };
 
   constructor(
     private elementRef: ElementRef,
+    private msg: NzMessageService,
     private route: ActivatedRoute,
+    private projectService : ProjectService,
+    private taskService: TaskService,
+    private userService: UserService,
+    private notification: NzNotificationService,
   ) { }
 
 
@@ -22,12 +59,124 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
     this.route.params.subscribe(params => {
       this.projectID = params['id'];
     });
+    this.fetchProject();
+    this.fetchTask();
+    this.fetchUser();
+    this.getProjectData();
+    this.getProjectTeamInfo();
   }
+  showAddTask(){
+    this.isTask = true
+  }
+  OkAddTask(){
+    const formattedCreatedDate = formatDate(this.task.createdDate, 'yyyy-MM-dd HH:mm:ss', 'en-US');
+    this.task.createdDate = formattedCreatedDate;
+    this.task.endDate = formattedCreatedDate;
+    this.taskService.addTask(this.task).subscribe(
+      (response) => {
+        this.notification.success(
+          'Thêm công việc mới thành công',
+          'Danh sách công việc đã được cập nhật.'
+        );
+      },
+      (error) => {
+        {
+          this.notification.error(
+          'Thêm công việc không thành công',
+          'Vui lòng kiểm tra lại thông tin công việc.'
+          );
+        }
+        console.log(error);
+      }
+    );
+    this.isTask = false;
+  }
+  fetchProject() {
+    this.projectService.getProejct().subscribe(
+      (response) => {
+        this.projects = response;
+      },
+      (error) => {
+        console.error('Lỗi dữ liệu thông tin dự án', error);
+      }
+    );
+  }
+  fetchUser() {
+    this.userService.getUsers().subscribe(
+      (response) => {
+        this.users = response;
+      },
+      (error) => {
+        console.error('Lỗi dữ liệu thông tin người dùng', error);
+      }
+    );
+  }
+  fetchTask(){
+    this.taskService.getTask().subscribe(
+      (res) =>{
+        this.tasks = res;
+      },
+      (error) =>{
+        console.error('Lỗi dữ liệu thông tin công việc', error);
+      }
+    )
+  }
+  getProjectData() {
+    if (this.projectID) {
+      this.projectService.getProjectById(this.projectID).subscribe(
+        (data) => {
+          this.TaskData = data;
+        },
+        (error) => {
+          console.error('Lỗi khi lấy dự án theo ID:', error);
+        }
+      );
+    } else {
+      console.error('projectId không được định nghĩa. Không thể lấy dự án theo ID.');
+    }
+  }
+  getProjectTeamInfo(): void {
+    this.route.params.subscribe((params) => {
+      this.teamID = +params['id'];
+      this.projectService.getProjectTeamID(this.teamID).subscribe(
+        (data) => {
+          this.teamData = data.projectTeam;
+        },
+        (error) => {
+          console.error('Error fetching project team data:', error);
+        }
+      );
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   ngAfterViewInit() {
     this.drawChart();
     this.drowChart();
   }
-
   drawChart() {
     const ctx = this.elementRef.nativeElement.querySelector('#myChart');
     const myChart = new Chart(ctx, {
@@ -59,7 +208,6 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
       }
     });
   }
-
   drowChart() {
     const ctx = this.elementRef.nativeElement.querySelector('#trangthai');
     const trangthai = new Chart(ctx, {
@@ -86,5 +234,16 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
         }
       }
     });
+  }
+  handleChange({ file, fileList }: NzUploadChangeParam): void {
+    const status = file.status;
+    if (status !== 'uploading') {
+      console.log(file, fileList);
+    }
+    if (status === 'done') {
+      this.msg.success(`${file.name} file uploaded successfully.`);
+    } else if (status === 'error') {
+      this.msg.error(`${file.name} file upload failed.`);
+    }
   }
 }

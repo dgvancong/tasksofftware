@@ -101,7 +101,7 @@
           <th style="text-align: center;">Tên dự án</th>
           <th style="text-align: center;">Mã dự án</th>
           <th style="text-align: center;">Loại dự án</th>
-          <th style="text-align: center;">Hạng mục</th>
+          <th style="text-align: center;">Quản lý</th>
           <th style="text-align: center;">Ngày bắt đầu</th>
           <th style="text-align: center;">Tiến trình</th>
           <th style="text-align: center;">Thao tác</th>
@@ -109,10 +109,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of projects">
-          <td [routerLink]="['/user/work-summary/'+ data.projectID]" style="text-align: center;">{{ data.projectName }}</td>
+          <td [routerLink]="['/project/work-summary/'+ data.projectID]" style="text-align: center; cursor: pointer;;">{{ data.projectName }}</td>
           <td style="text-align: center;">TSP {{ data.projectID }}</td>
           <td style="text-align: center;">{{ data.projectDescription }}</td>
-          <td style="text-align: center;">{{ data.teamFullName }}</td>
+          <td style="text-align: center;">{{ data.leadFullName }}</td>
           <td style="text-align: center;">{{ data.createdDate | date: 'dd-MM-yyyy'}}</td>
           <td style="text-align: center;"><nz-progress [nzPercent]="data.progress" [nzShowInfo]="false"></nz-progress></td>
           <td style="align-items: center; cursor: pointer;">
@@ -343,56 +343,59 @@ nzTitle="Thêm dựa án mới "
         <div class="scrollable-table-form-project">
           <div class="block-form">
             <label for="">Tên dự án</label>
-            <input  style="width: 97%;font-size: 13px; font-weight: 600;" nz-input nzSize="large" [(ngModel)]="UpdateProfile.projectName" id="projectName" name="projectName" disabled="true" />
+            <input  style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" nz-input nzSize="large" [(ngModel)]="UpdateProfile.projectName" id="projectName" name="projectName" disabled="true" />
           </div>
           <div class="block-form">
             <label for="">Quản lý dự án</label>
-            <input style="width: 97%;font-size: 13px; font-weight: 600;" nz-input nzSize="large" id="leadFullName" name="leadFullName" [(ngModel)]="UpdateProfile.leadFullName"disabled="true" />
+            <input style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" nz-input nzSize="large" id="leadFullName" name="leadFullName" [(ngModel)]="UpdateProfile.leadFullName"disabled="true" />
           </div>
           <div class="block-form">
             <label for="">Tiến trình dự án</label>
-            <input  style="width: 97%;font-size: 13px; font-weight: 600;" nz-input nzSize="large" id="progress" name="progress" [(ngModel)]="UpdateProfile.progress" disabled="true" />
+            <input  style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" nz-input nzSize="large" id="progress" name="progress" [(ngModel)]="UpdateProfile.progress" disabled="true" />
           </div>
           <div class="block-form">
             <label for="">Thành viên nhóm dự án</label>
-            <input  style="width: 97%;font-size: 13px; font-weight: 600;" nz-input nzSize="large"  id="projectLead" name="projectLead" [(ngModel)]="UpdateProfile.teamFullName" disabled="true"/>
+            <input  style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" nz-input nzSize="large"  id="projectLead" name="projectLead" [(ngModel)]="UpdateProfile.teamFullName" disabled="true"/>
           </div>
           <div class="block-form">
             <label for=""> Mô tả dự án</label>
-            <input  style="width: 97%;font-size: 13px; font-weight: 600;" nz-input nzSize="large" id="projectDescription" name="projectDescription" [(ngModel)]="UpdateProfile.projectDescription" disabled="true" />
+            <input  style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" nz-input nzSize="large" id="projectDescription" name="projectDescription" [(ngModel)]="UpdateProfile.projectDescription" disabled="true" />
           </div>
           <div class="block-form">
             <label for="">Ngày khởi tạo</label>
-            <nz-date-picker nzSize="large"  style="width: 97%;font-size: 13px; font-weight: 600;" [nzFormat]="dateFormat" [(ngModel)]="UpdateProfile.createdDate" id="createdDate" name="createdDate" disabled="true"></nz-date-picker>
+            <nz-date-picker nzSize="large"  style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" [nzFormat]="dateFormat" [(ngModel)]="UpdateProfile.createdDate" id="createdDate" name="createdDate" disabled="true"></nz-date-picker>
           </div>
           <div class="block-form">
             <label for="">Ngày hết hạn</label> <br>
-            <nz-date-picker nzSize="large"  style="width: 97%;font-size: 13px; font-weight: 600;" [nzFormat]="dateFormat"  [(ngModel)]="UpdateProfile.endDate" id="endDate" name="endDate" disabled="true"></nz-date-picker>
+            <nz-date-picker nzSize="large"  style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" [nzFormat]="dateFormat"  [(ngModel)]="UpdateProfile.endDate" id="endDate" name="endDate" disabled="true"></nz-date-picker>
           </div>
           <div class="block-form">
             <label for="">Chìa khóa</label>
-            <input  style="width: 97%;font-size: 13px; font-weight: 600;" nz-input nzSize="large" id="projectKey" name="projectKey" [(ngModel)]="UpdateProfile.projectID" disabled="true" />
+            <input  style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" nz-input nzSize="large" id="projectKey" name="projectKey" [(ngModel)]="UpdateProfile.projectID" disabled="true" />
+          </div>
+
+          <div class="block-form">
+            <label style="font-size: 16px;">Thông tin liên hệ với khách hàng :</label>
           </div>
 
           <!-- Tên khánh hàng -->
           <div class="block-form">
             <label for="">Tên khách hàng</label>
-            <input  style="width: 97%;font-size: 13px; font-weight: 600;" nz-input nzSize="large" id="clientContactName" name="clientContactName" [(ngModel)]="UpdateProfile.clientContactName" disabled="true" />
+            <input  style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" nz-input nzSize="large" id="clientContactName" name="clientContactName" [(ngModel)]="UpdateProfile.clientContactName" disabled="true" />
           </div>
           <!-- Email khách hàng -->
           <div class="block-form">
             <label for="">Email liên hệ</label>
-            <input  style="width: 97%;font-size: 13px; font-weight: 600;" nz-input nzSize="large" id="clientContactEmail" name="clientContactEmail" [(ngModel)]="UpdateProfile.clientContactEmail" disabled="true" />
+            <input  style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" nz-input nzSize="large" id="clientContactEmail" name="clientContactEmail" [(ngModel)]="UpdateProfile.clientContactEmail" disabled="true" />
           </div>
           <!-- Số điện thoại -->
           <div class="block-form">
             <label for="">Số điện thoại</label>
-            <input  style="width: 97%;font-size: 13px; font-weight: 600;" nz-input nzSize="large" id="clientContactPhone" name="clientContactPhone" [(ngModel)]="UpdateProfile.clientContactPhone" disabled="true" />
+            <input  style="width: 97%;font-size: 13px; font-weight: 600; color: #000000;" nz-input nzSize="large" id="clientContactPhone" name="clientContactPhone" [(ngModel)]="UpdateProfile.clientContactPhone" disabled="true" />
           </div>
         </div>
         <div class="footer">
-          <button (click)="isProfile = false" class="footer-cancel">Hủy</button>
-          <button class="footer-add">Xác nhận</button>
+          <button (click)="isProfile = false" class="footer-cancel">Đóng</button>
         </div>
 
       </form>

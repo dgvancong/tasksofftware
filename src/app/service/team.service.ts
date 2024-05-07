@@ -28,9 +28,6 @@ export class TeamService {
   addTeam(teamName: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/add_team`, { teamName });
   }
-  getProjectTeamID(projectID: any): Observable<any> {
-    return this.http.get(`${this.apiUrl}/projectteam/${projectID}`);
-  }
   deleteTeam(teamId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/delete_team/${teamId}`);
   }

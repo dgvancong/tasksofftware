@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TaskService } from '../../../../service/task.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 interface ItemData {
   id: number;
   name: string;
@@ -8,6 +11,9 @@ interface ItemData {
 @Component({
   selector: 'app-list',
   standalone: false,
+  providers: [
+    DatePipe,
+  ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
@@ -17,6 +23,45 @@ export class ListComponent implements OnInit {
   listOfCurrentPageData: readonly ItemData[] = [];
   listOfData: readonly ItemData[] = [];
   setOfCheckedId = new Set<number>();
+  projectId : any;
+  projectData : any;
+  priorityMap: { [key: number]: string } = {
+    1: 'Lowest',
+    2: 'Low',
+    3: 'Medium',
+    4: 'High',
+    5: 'Highest'
+  };
+
+  constructor(
+    private taskServices: TaskService,
+    private datePipe: DatePipe,
+    private router : Router,
+    private route: ActivatedRoute,
+   ){}
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.projectId = params['id'];
+    });
+    this.getTaskProjectData();
+  }
+  getTaskProjectData() {
+    if (this.projectId) {
+      this.taskServices.getTaskProjectById(this.projectId).subscribe(
+        (data) => {
+          this.projectData = data;
+          console.log(this.projectData);
+
+        },
+        (error) => {
+          console.error('Lỗi khi lấy dự án theo ID:', error);
+        }
+      );
+    } else {
+      console.error('projectId không được định nghĩa. Không thể lấy dự án theo ID.');
+    }
+  }
 
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
@@ -25,33 +70,20 @@ export class ListComponent implements OnInit {
       this.setOfCheckedId.delete(id);
     }
   }
-
   onItemChecked(id: number, checked: boolean): void {
     this.updateCheckedSet(id, checked);
     this.refreshCheckedStatus();
   }
-
   onAllChecked(value: boolean): void {
     this.listOfCurrentPageData.forEach(item => this.updateCheckedSet(item.id, value));
     this.refreshCheckedStatus();
   }
-
   onCurrentPageDataChange($event: readonly ItemData[]): void {
     this.listOfCurrentPageData = $event;
     this.refreshCheckedStatus();
   }
-
   refreshCheckedStatus(): void {
     this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
     this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
-  }
-
-  ngOnInit(): void {
-    this.listOfData = new Array(1).fill(0).map((_, index) => ({
-      id: index,
-      name: `Edward King ${index}`,
-      age: 32,
-      address: `London, Park Lane no. ${index}`
-    }));
   }
 }

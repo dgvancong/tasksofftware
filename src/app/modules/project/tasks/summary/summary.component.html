@@ -13,7 +13,7 @@
       <h5>Task SoftWare</h5>
     </div>
     <div class="bg-header-text-button">
-      <button> Thêm công việc</button>
+      <button (click)="showAddTask()"> Thêm công việc</button>
     </div>
   </div>
   <div class="bg-header-tabs">
@@ -221,3 +221,108 @@
 
 <app-settings *ngIf="statusView === 12"></app-settings>
 
+
+
+
+<!-- Tạo công việc dự án -->
+<nz-modal
+[(nzVisible)]="isTask"
+[nzFooter]="null"
+nzTitle="Tạo công việc mới cho dựa án của bạn"
+[nzWidth]="850"
+>
+<ng-container *nzModalContent>
+  <div class="header-modal">
+    <p>Phần bắt buộc được đánh dấu bằng một dấu sao <span style="color: red;">*</span> </p>
+    <div class="header-issue">
+      <p> Vấn đề</p>
+      <img _ngcontent-ng-c3631520248="" src="/assets/icon/project/Icon.svg" alt="">
+    </div>
+  </div>
+  <div class="form-project">
+    <form>
+      <div class="scrollable-table-form-project">
+
+        <div class="block-form">
+          <label for="">Dự án của bạn <span style="color: red;">*</span></label>
+          <input *ngFor="let member of TaskData" style="width: 97%; color: #000000D9;" placeholder="{{member.projectName}}" [(ngModel)]="task.projectID" value="{{task.projectID}}" nz-input nzSize="large" id="projectName" name="projectName" disabled />
+        </div>
+        <div class="block-form">
+          <label for="">Quản lý dự án <span style="color: red;">*</span></label>
+          <input *ngFor="let member of TaskData" style="width: 97%; color: #000000D9;" placeholder="{{member.projectManagerName}}" [(ngModel)]="task.userID" value="{{task.userID}}" nz-input nzSize="large" id="projectName" name="projectName" disabled />
+        </div>
+        <div class="block-form">
+          <label for=""> Các loại vấn đề </label>
+          <input style="width: 97%;" nz-input id="taskType" name="taskType" nz-input placeholder="Nhập vấn đề công việc ..." [(ngModel)]="task.taskType" nzSize="large"/>
+        </div>
+        <div class="block-form">
+          <label for=""> Tóm tắt <span style="color: red;">*</span></label>
+          <textarea rows="5" style="width: 97%;" nz-input id="summary" name="summary" nz-input placeholder="Nhập mô tả tóm tắt công việc ..." [(ngModel)]="task.summary"  nzSize="large"></textarea>
+        </div>
+        <div class="block-form">
+          <label for="">Ngày khởi tạo</label>
+          <nz-date-picker nzSize="large" style="width: 97%;" [nzPlaceHolder]="'Ngày bắt đầu công việc ...'" [(ngModel)]="task.createdDate" id="createdDate" name="createdDate"></nz-date-picker>
+        </div>
+        <div class="block-form">
+          <label for="">Ngày hết hạn</label>
+          <nz-date-picker nzSize="large" style="width: 97%;" [nzPlaceHolder]="'Ngày hết hạn công việc ...'" [(ngModel)]="task.endDate" id="endDate" name="endDate"></nz-date-picker>
+        </div>
+        <div class="block-form">
+          <label for="">Sự ưu tiên <span style="color: red;">*</span></label>
+          <nz-select id="priority" name="priority" [(ngModel)]="task.priority" nzShowSearch nzAllowClear nzPlaceHolder="Chọn trạng thái công việc ..." style="width: 97%;">
+            <nz-option nzValue="1" nzLabel="Low"></nz-option>
+            <nz-option nzValue="2" nzLabel="Lowest"></nz-option>
+            <nz-option nzValue="3" nzLabel="Medium"></nz-option>
+            <nz-option nzValue="4" nzLabel="High"></nz-option>
+            <nz-option nzValue="5" nzLabel="Highest"></nz-option>
+          </nz-select>
+          <p style="margin-top: 5px; color: #1890ff; font-size: 13px; font-weight: 500; cursor: pointer;" >Tìm hiểu về mức độ ưu tiên</p>
+        </div>
+        <div class="block-form">
+          <label for=""> Mô tả chi tiết <span style="color: red;">*</span></label>
+          <textarea rows="5" style="width: 97%;" nz-input id="description" name="description" nz-input placeholder="Nhập mô tả chi tiết công việc ..." [(ngModel)]="task.description"  nzSize="large"></textarea>
+        </div>
+        <div class="block-form">
+          <label for="">Tệp tin đính kèm</label>
+          <nz-upload
+          nzType="drag"
+          [nzMultiple]="true"
+          nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          (nzChange)="handleChange($event)"
+          [nzWithCredentials]="'97%'"
+        >
+          <p class="ant-upload-hint" style="color: #000000D9; display: flex; text-align: center; gap:10px; justify-content: center; ">
+            <span nz-icon nzType="cloud-upload" nzTheme="outline"></span>
+            <span>Thả tập tin để đính kèm hoặc kéo qua</span>
+          </p>
+        </nz-upload>
+      </div>
+      <div class="block-form">
+        <label for="">Thời gian ước tính <span style="color: red;">*</span></label>
+        <input style="width: 97%; color: #000000D9;" placeholder="Nhập thời gian hoàn thành công việc" [(ngModel)]="task.actualHoursSpent" nz-input nzSize="large" id="actualHoursSpent" name="actualHoursSpent" />
+      </div>
+      <p style="color: #707070; font-size: 13px; font-weight: 500; cursor: pointer; width: 350px;" >
+        Ước tính số lượng công việc còn lại cho đến khi vấn đề này được giải quyết. <br>
+        <span>
+          Định dạng của nó là ' *w *d *h *m ' (biểu thị tuần, ngày, giờ và phút - trong đó * có thể là bất kỳ số nào).
+        </span> <br>
+        Ví dụ: 4d, 5h 30m, 60m và 3w.
+       </p>
+
+      <div class="block-form">
+        <label for="">Người được giao công việc <span style="color: red;">*</span></label>
+        <nz-select id="userID" name="userID" [(ngModel)]="task.taskManagerID" nzShowSearch nzAllowClear nzPlaceHolder="Chọn thành viên hoặc nhóm cho dự án ..." style="width: 97%;">
+          <nz-option *ngFor="let member of teamData" [nzLabel]="member.fullName" [nzValue]="member.userID"></nz-option>
+        </nz-select>
+      </div>
+
+      </div>
+      <div class="footer">
+        <button (click)="isTask = false" class="footer-cancel">Hủy</button>
+        <button class="footer-add" (click)="OkAddTask()">Xác nhận</button>
+      </div>
+
+    </form>
+  </div>
+</ng-container>
+</nz-modal>

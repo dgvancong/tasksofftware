@@ -228,3 +228,115 @@
   overflow-y: auto;
 }
 // statusView: any = 1;
+.header-modal{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+
+  p{
+    color: #2B2B2B;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+  }
+  .header-issue{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    p{
+      background-color: #E5E8EB;
+      width: 70px;
+      height: 30px;
+      border: none;
+      color: #000000;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+  }
+}
+
+.css-1m7bkbm {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 40px;
+  margin:  0px;
+  align-items: center;
+  border: 0px;
+  font-size:  14px;
+  outline: 0px;
+  text-decoration: none;
+  user-select: none;
+  padding-block:  8px;
+  padding-inline:  16px;
+  background-color: #00000000;
+  color: currentcolor;
+  cursor: pointer;
+
+  .css-12dc8u4 {
+    display: flex;
+    box-sizing: border-box;
+    gap:  12px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    flex-grow: 1;
+  }
+  .css-1uww2tp {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-grow: 1;
+    line-height:  16px;
+    outline: none;
+    overflow: hidden;
+    text-align: left;
+  }
+  .css-5mekwu {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+.toast-header-th{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.ant-input:placeholder-shown {
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+.scrollable-table-form-project{
+  max-height: 345px;
+  overflow-y: hidden;
+  width: auto;
+}
+.scrollable-table-form-project:hover {
+  overflow-y: auto;
+}
+.scrollable-table-form-body{
+  max-height: 27vw;
+  overflow-y: hidden;
+  width: auto;
+}
+.scrollable-table-form-body:hover {
+  overflow-y: auto;
+}
