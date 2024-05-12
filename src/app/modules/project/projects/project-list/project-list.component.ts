@@ -23,6 +23,7 @@ export class ProjectListComponent implements OnInit {
   projects: any[] = [];
   teams: any[] = [];
   users: any[] = [];
+  loading = false;
   isDelete = false;
   isUpdate = false;
   isProfile = false;
@@ -152,9 +153,11 @@ export class ProjectListComponent implements OnInit {
     this.isProfile = true;
   }
   getProejct(): void {
+    this.loading = true;
     this.projectService.getProejct().subscribe(
       (response: any[]) => {
         this.projects = response;
+        this.loading = false;
       },
       (error) => {
         console.error('Thông tin dữ liệu dự án lỗi:', error);

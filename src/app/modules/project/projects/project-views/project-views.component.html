@@ -47,7 +47,7 @@
     <tbody>
       <tr *ngFor="let project of projects">
         <td routerLink="/project/work-summary">{{ project.projectName }}</td>
-        <td>{{ project.projectKey }}</td>
+        <td>TSP-{{ project.projectID }}</td>
         <td>{{ project.clientContactName }}</td>
         <td>{{ project.clientContactEmail }}</td>
         <td>{{ project.clientContactPhone }}</td>

@@ -60,7 +60,7 @@ export const routes: Routes = [
 
       { path: 'work-avatar/:id', component: AvatarComponent },
 
-      { path:'setting/:id', component:SettingServiceComponent},
+      { path:'setting', component:SettingServiceComponent},
     ],
   },
 ];

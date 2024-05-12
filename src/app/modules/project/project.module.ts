@@ -22,6 +22,7 @@ import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzCommentModule } from 'ng-zorro-antd/comment';
 
 
 // Components
@@ -106,7 +107,8 @@ import { ListComponent } from './tasks/list/list.component';
     NzCalendarModule,
     NzMessageModule,
     NzSelectModule,
-    NzUploadModule
+    NzUploadModule,
+    NzCommentModule
 
   ],
   exports: [

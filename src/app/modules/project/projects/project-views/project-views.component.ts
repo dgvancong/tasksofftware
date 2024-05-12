@@ -10,7 +10,7 @@ import { Project } from '../../../../models/interface/project';
   styleUrl: './project-views.component.scss'
 })
 export class ProjectViewsComponent implements OnInit {
-  projects: Project[] = [];
+  projects: any[] = [];
   isDelete = false;
   isUpdate = false;
   dateFormat = 'dd-MM-yyyy'
@@ -32,7 +32,7 @@ export class ProjectViewsComponent implements OnInit {
   getProejct(): void {
     this.projectService.getProejct().subscribe(
       (response) => {
-        this.projects = response.data;
+        this.projects = response;
       },
       (error) => {
         console.error('Thông tin dữ liệu dự án lỗi:', error);

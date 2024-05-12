@@ -13,8 +13,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  private userUrl = 'https://taskmasternodejs.vercel.app/user';
-  private apiUrl = 'http://localhost:3000/user'
+  private userUrl = 'http://localhost:3000/user'
 
   registerUser(user: any): Observable<any> {
     return this.http.post<any>(`${this.userUrl}/register/`, user);
@@ -32,7 +31,7 @@ export class UserService {
   }
 
   getUsers(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}`);
+    return this.http.get<any>(`${this.userUrl}`);
   }
 
   getUserInfo(userID:any): Observable<any> {

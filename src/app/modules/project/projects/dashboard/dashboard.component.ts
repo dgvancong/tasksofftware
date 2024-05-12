@@ -32,8 +32,6 @@ export class DashboardComponent implements OnInit {
     this.userService.getUserInfo(userID).subscribe(
       (data) => {
         this.userData = data.userLogin;
-        console.log(this.userData,"userdata");
-
       },
       (error) => {
         console.error('Error fetching user data:', error);

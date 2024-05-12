@@ -1,3 +1,4 @@
+import { TaskService } from './../../../../service/task.service';
 import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { UserService } from '../../../../service/user.service';
@@ -5,6 +6,9 @@ import { TeamService } from '../../../../service/team.service';
 import { ProjectService } from '../../../../service/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { ChangeDetectorRef } from '@angular/core';
+import { formatDistance } from 'date-fns';
+
 
 @Component({
   selector: 'app-board',
@@ -28,16 +32,41 @@ export class AvatarComponent implements OnInit {
     userID: '',
     joinDate: ''
   };
+  priorityMap: { [key: number]: string } = {
+    1: 'Lowest',
+    2: 'Low',
+    3: 'Medium',
+    4: 'High',
+    5: 'Highest'
+  };
+  isShowInfor = false;
+  likes = 0;
+  dislikes = 0;
+  time = formatDistance(new Date(), new Date());
+  editedProject: any = {};
+  selectedProject: any;
+
+
 constructor(
   private route: ActivatedRoute,
   private userService: UserService,
   private teamService: TeamService,
   private projectService : ProjectService,
   private notification: NzNotificationService,
+  private taskService : TaskService,
+  private cdr: ChangeDetectorRef
 ){}
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.projectID = params['id'];
+      this.taskService.getTaskProjectById(this.projectID).subscribe(
+        (data) => {
+          this.tasks = data;
+        },
+        (error) => {
+          console.error('Có lỗi khi gọi API:', error);
+        }
+      );
     });
     this.fetchUser();
     this.fetchTeams();
@@ -50,7 +79,6 @@ constructor(
       this.projectService.getProjectTeamID(teamID).subscribe(
         (data) => {
           this.teamData = data.projectTeam;
-          console.log("Thành viên dự án :", this.teamData);
         },
         (error) => {
           console.error('Error fetching project team data:', error);
@@ -120,5 +148,60 @@ constructor(
         console.error('Error fetching roles:', error);
       }
     );
+  }
+
+  // Bảng
+  currentItem : any;
+  tasks: any[] = [];
+
+  filterTickets(status: string) {
+    return this.tasks.filter((task) => task.status === status);
+  }
+
+  onDragStart(item: any) {
+    this.currentItem = item;
+    console.log('Current Item:', this.currentItem);
+  }
+
+  onDrop(event: any, status: string) {
+    event.preventDefault();
+    if (!this.currentItem || !this.currentItem.taskID) {
+      console.error('Không có công việc hoặc taskId không hợp lệ.');
+      return;
+    }
+    const taskId = this.currentItem.taskID;
+    this.taskService.updateTask(taskId, { status }).subscribe(
+      (data) => {
+        console.log('API Response:', data);
+        const updatedTaskIndex = this.tasks.findIndex((task) => task.taskID === taskId);
+        if (updatedTaskIndex !== -1) {
+          this.tasks[updatedTaskIndex].status = status;
+          console.log('Cập nhật trạng thái công việc thành công:', data);
+          this.cdr.detectChanges();
+        }
+      },
+      (error) => {
+        console.error('Có lỗi khi cập nhật trạng thái công việc:', error);
+      }
+    );
+
+    this.currentItem = null;
+  }
+  onDrapOver(event : any){
+    event.preventDefault();
+  }
+
+  cancelTaskInfor(){
+    this.isShowInfor = false;
+  }
+  showTaskInfor(selectedProject: any): void{
+    this.selectedProject = selectedProject;
+      if (this.selectedProject) {
+        setTimeout(() => {
+          this.editedProject = { ...selectedProject };
+          this.isShowInfor = true;
+        }, 0);
+      }
+    this.isShowInfor = true;
   }
 }

@@ -245,11 +245,15 @@ nzTitle="Tạo công việc mới cho dựa án của bạn"
 
         <div class="block-form">
           <label for="">Dự án của bạn <span style="color: red;">*</span></label>
-          <input *ngFor="let member of TaskData" style="width: 97%; color: #000000D9;" placeholder="{{member.projectName}}" [(ngModel)]="task.projectID" value="{{task.projectID}}" nz-input nzSize="large" id="projectName" name="projectName" disabled />
+          <nz-select id="userID" name="userID" [(ngModel)]="task.projectID" style="width: 97%; color: #000000D9;" nzShowSearch nzAllowClear nzPlaceHolder="Chọn thành viên vào nhóm dự án ...">
+            <nz-option *ngFor="let member of projectData" [nzLabel]="member.projectName" [nzValue]="member.projectID"></nz-option>
+          </nz-select>
         </div>
         <div class="block-form">
           <label for="">Quản lý dự án <span style="color: red;">*</span></label>
-          <input *ngFor="let member of TaskData" style="width: 97%; color: #000000D9;" placeholder="{{member.projectManagerName}}" [(ngModel)]="task.userID" value="{{task.userID}}" nz-input nzSize="large" id="projectName" name="projectName" disabled />
+          <nz-select id="userID" name="userID" [(ngModel)]="task.userID" style="width: 97%; color: #000000D9;" nzShowSearch nzAllowClear nzPlaceHolder="Chọn thành viên vào nhóm dự án ...">
+            <nz-option *ngFor="let member of projectData" [nzLabel]="member.projectManagerName" [nzValue]="member.userID"></nz-option>
+          </nz-select>
         </div>
         <div class="block-form">
           <label for=""> Các loại vấn đề </label>

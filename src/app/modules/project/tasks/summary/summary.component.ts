@@ -3,7 +3,7 @@ import { UserService } from './../../../../service/user.service';
 import { TaskService } from './../../../../service/task.service';
 import { ProjectService } from './../../../../service/project.service';
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Chart from 'chart.js/auto';
 import { formatDate } from '@angular/common';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -48,6 +48,7 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
     private elementRef: ElementRef,
     private msg: NzMessageService,
     private route: ActivatedRoute,
+    private router: Router,
     private projectService : ProjectService,
     private taskService: TaskService,
     private userService: UserService,
@@ -57,7 +58,7 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.projectID = params['id'];
+      this.projectId = params['id'];
     });
     this.fetchProject();
     this.fetchTask();
@@ -78,6 +79,7 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
           'Thêm công việc mới thành công',
           'Danh sách công việc đã được cập nhật.'
         );
+        this.statusView === 2;
       },
       (error) => {
         {
@@ -122,10 +124,10 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
     )
   }
   getProjectData() {
-    if (this.projectID) {
-      this.projectService.getProjectById(this.projectID).subscribe(
+    if (this.projectId) {
+      this.projectService.getProjectById(this.projectId).subscribe(
         (data) => {
-          this.TaskData = data;
+          this.projectData = data;
         },
         (error) => {
           console.error('Lỗi khi lấy dự án theo ID:', error);

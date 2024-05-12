@@ -12,9 +12,7 @@ export class ProjectNotificationComponent implements OnInit {
 
  constructor(
   private userService: UserService,
- ){
-
- }
+ ){}
   ngOnInit(): void {
     this.fetchUser();
   }
@@ -23,8 +21,6 @@ export class ProjectNotificationComponent implements OnInit {
     this.userService.getUsers().subscribe(
       (response) => {
         this.users = response;
-        console.log(response);
-
       },
       (error) => {
         console.error('Thông tin dữ liệu người dùng bị lỗi:', error);

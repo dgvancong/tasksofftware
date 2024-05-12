@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../../../service/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { TeamService } from '../../../../service/team.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { formatDate } from '@angular/common';
+import { ProjectService } from '../../../../service/project.service';
 interface ItemData {
   id: number;
   name: string;
@@ -25,6 +29,10 @@ export class ListComponent implements OnInit {
   setOfCheckedId = new Set<number>();
   projectId : any;
   projectData : any;
+  teamData: any;
+  TaskData: any;
+  users: any[] = [];
+  isTeamMember = false;
   priorityMap: { [key: number]: string } = {
     1: 'Lowest',
     2: 'Low',
@@ -32,12 +40,20 @@ export class ListComponent implements OnInit {
     4: 'High',
     5: 'Highest'
   };
+  dateFormat = 'yyyy-MM-dd';
+  teammenber = {
+    teamID: '',
+    userID: '',
+    joinDate: ''
+  };
 
   constructor(
     private taskServices: TaskService,
-    private datePipe: DatePipe,
     private router : Router,
     private route: ActivatedRoute,
+    private teamService: TeamService,
+    private projectService: ProjectService,
+    private notification: NzNotificationService,
    ){}
 
   ngOnInit(): void {
@@ -45,6 +61,20 @@ export class ListComponent implements OnInit {
       this.projectId = params['id'];
     });
     this.getTaskProjectData();
+    this.fetchProjectTeamData();
+  }
+  fetchProjectTeamData(): void {
+    this.route.params.subscribe((params) => {
+      const teamID = +params['id'];
+      this.projectService.getProjectTeamID(teamID).subscribe(
+        (data) => {
+          this.teamData = data.projectTeam;
+        },
+        (error) => {
+          console.error('Error fetching project team data:', error);
+        }
+      );
+    });
   }
   getTaskProjectData() {
     if (this.projectId) {
@@ -62,7 +92,6 @@ export class ListComponent implements OnInit {
       console.error('projectId không được định nghĩa. Không thể lấy dự án theo ID.');
     }
   }
-
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
       this.setOfCheckedId.add(id);

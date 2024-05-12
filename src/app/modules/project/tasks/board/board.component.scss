@@ -269,22 +269,166 @@
     height: 400px;
   }
 }
-.drop-hon{
-  width: 250px;
-  padding: 20px 20px 20px 20px;
-  gap: 12px;
-  h5{
-    font-size: 14px;
-    font-weight: 700;
-    text-align: left;
+.content-info{
+  width: 100%;
+  .key{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .layout{
+    display: flex;
+    .content-left{
+      width: 50%;
+      padding-right: 10px;
+      h5{
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      .container-left{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 24px;
+
+        button{
+          height: 40px;
+          padding: 10px 16px 10px 16px;
+          border: none;
+          background-color: #E5E8EB;
+          color: #272D37;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          border-radius: 8px;
+          border: 1px solid #E5E8EB;
+        }
+      }
+      .ckd-info{
+        margin-bottom: 24px;
+        h6{
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 8px;
+        }
+      }
+      .comment{
+        h6{
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 12px;
+        }
+        .comment-button{
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 24px;
+
+          button{
+            height: 25px;
+            padding: 10px 16px 10px 16px;
+            border: none;
+            border-radius: 8px;
+            background-color: #E5E8EB;
+            color: #272D37;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+          }
+        }
+        .user-content{
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+      }
+    }
+    .content-right{
+      width: 50%;
+      padding: 0 10px;
+
+      h5{
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .container-right{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 24px;
+
+        button{
+          height: 40px;
+          padding: 10px 16px 10px 16px;
+          border: none;
+          background-color: #E5E8EB;
+          color: #272D37;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          border-radius: 8px;
+          border: 1px solid #E5E8EB;
+        }
+      }
+      .task-details{
+        padding: 24px;
+        border: 1px solid #E5E8EB;
+        text-align: center;
+        .details-title{
+          display: flex;
+          align-items: center;
+          margin-bottom: 14px;
+
+          .title-right{
+            font-size: 14px;
+            font-weight: 500;
+            width: 200px;
+            text-align: left;
+          }
+          .title-left{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          }
+        }
+      }
+
+
+    }
   }
 }
 .scrollable-table {
   max-height: 30vw;
   overflow-y: hidden;
   width: auto;
+
+  :hover {
+    overflow-y: auto;
+  }
 }
-.scrollable-table:hover {
+
+.scrollable-table-info{
+  max-height: 28vw;
+  overflow-y: hidden;
+  width: auto;
+}
+.scrollable-table-info:hover {
   overflow-y: auto;
 }
 span.ant-menu-title-content {
@@ -292,4 +436,20 @@ span.ant-menu-title-content {
   justify-content: center;
   align-items: center;
   gap: 20px;
+}
+.tasks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.task {
+  background-color: #F5F8FA;
+  border: 1px solid #F5F8FA;
+  border-radius: 8px;
+  padding: 9pt;
+  margin-bottom: 8px;
+  cursor: grab;
+  height: 5rem;
+  color: #74808B;
+  font-weight: 500;
 }

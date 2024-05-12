@@ -95,6 +95,7 @@
       [nzShowPagination]="false"
       [nzData]="projects"
       nzTableLayout="fixed"
+      [nzLoading]="loading"
     >
       <thead>
         <tr>
@@ -110,13 +111,13 @@
       <tbody>
         <tr *ngFor="let data of projects">
           <td [routerLink]="['/project/work-summary/'+ data.projectID]" style="text-align: center; cursor: pointer;;">{{ data.projectName }}</td>
-          <td style="text-align: center;">TSP {{ data.projectID }}</td>
+          <td style="text-align: center;">TSP-{{ data.projectID }}</td>
           <td style="text-align: center;">{{ data.projectDescription }}</td>
           <td style="text-align: center;">{{ data.leadFullName }}</td>
           <td style="text-align: center;">{{ data.createdDate | date: 'dd-MM-yyyy'}}</td>
           <td style="text-align: center;"><nz-progress [nzPercent]="data.progress" [nzShowInfo]="false"></nz-progress></td>
-          <td style="align-items: center; cursor: pointer;">
-            <span nz-icon nzType="ellipsis" nzTheme="outline" nz-dropdown nzTrigger="click" [nzDropdownMenu]="import" style="text-align: center;"></span>
+          <td style="text-align: center; cursor: pointer;">
+            <span nz-icon nzType="ellipsis" nzTheme="outline" nz-dropdown nzTrigger="click" [nzDropdownMenu]="import"></span>
           </td>
 
           <nz-dropdown-menu #import="nzDropdownMenu">

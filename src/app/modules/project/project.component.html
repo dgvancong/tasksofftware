@@ -74,7 +74,10 @@
             <span nz-icon nzType="control" style="font-size: 22px;" nzTheme="outline"></span>
           </div>
           <div class="header-item-avatar" nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="users" *ngFor="let member of userData">
-            <nz-avatar [nzSize]="28" style="background-color: #1890ff" nzText="D"></nz-avatar>
+            <nz-avatar
+              nzText="{{ member.fullName.substring(0, 2).toUpperCase() }}"
+              class="avatar-user">
+            </nz-avatar>
             <nz-dropdown-menu #users="nzDropdownMenu" >
               <ul nz-menu>
                 <li nz-menu-item>
@@ -100,8 +103,24 @@
                       <div class="bg-background"></div>
                       <div class="bg-avatar">
                         <div>
-                          <img src="./assets/image/project/Thumbnail.png" alt="">
-                        </div>
+                          <nz-avatar
+                          nzText="{{ member.fullName.substring(0, 2).toUpperCase() }}"
+                          style="
+                            color: #0F80DE;
+                            background-color: #E4F4FE;
+                            display: flex;
+                            width: 100px;
+                            height: 100px;
+                            padding: 8px;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 8px;
+                            font-size: 100px !important;
+                            font-weight: 700;
+                          "
+                        ></nz-avatar>
+                      </div>
                         <div class="bd-info">
                           <h5 class="bd-info-name">{{ member.fullName }}</h5>
                           <p class="bd-info-email">{{ member.emailAddress }}</p>
