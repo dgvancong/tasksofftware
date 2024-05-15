@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { TeamService } from '../../../../service/team.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { formatDate } from '@angular/common';
 import { ProjectService } from '../../../../service/project.service';
+import { saveAs } from 'file-saver';
 interface ItemData {
   id: number;
   name: string;
@@ -91,6 +91,11 @@ export class ListComponent implements OnInit {
     } else {
       console.error('projectId không được định nghĩa. Không thể lấy dự án theo ID.');
     }
+  }
+  downloadExcel(): void {
+    this.taskServices.downloadExcel().subscribe((data: Blob) => {
+      saveAs(data, 'Dữ liệu công việc.xlsx');
+    });
   }
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {

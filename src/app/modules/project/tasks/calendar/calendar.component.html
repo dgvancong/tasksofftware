@@ -44,15 +44,11 @@
   </div>
   <div class="container-body">
 
-    <div class="scrollable-table">
-
-      <nz-calendar
-        [(ngModel)]="date"
-        [(nzMode)]="mode"
-        (nzPanelChange)="panelChange($event)"
-      ></nz-calendar>
-
-    </div>
+    <nz-calendar
+      [(ngModel)]="date"
+      [(nzMode)]="mode"
+      (nzPanelChange)="panelChange($event)"
+    ></nz-calendar>
 
   </div>
 </div>

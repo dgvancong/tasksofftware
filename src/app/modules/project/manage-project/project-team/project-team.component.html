@@ -5,13 +5,13 @@
       <span style="margin: 8px;">
         <img src="/assets/icon/project/Icon-arrow.svg" alt="">
       </span>
-      <a href="">Quản lý nhóm</a>
+      <a href="">Danh sách nhóm</a>
     </p>
   </div>
   <div class="bg-header-text">
 
     <div class="header-text">
-      <h3> QL Nhóm</h3>
+      <h5> Danh sách Nhóm</h5>
     </div>
     <div class="bg-header-text-button">
       <button (click)="showAddTeam()">Tạo nhóm</button>
@@ -127,7 +127,7 @@
           <td>{{ team.createdDate | date:'dd/MM/yyyy' }}</td>
           <td style="display: flex; justify-content: space-evenly; align-items: center; cursor: pointer; height: 55px;">
             <span nz-icon nzType="delete" nzTheme="outline" (click)="showDelete(team)"></span>
-            <span nz-icon nzType="form" nzTheme="outline" (click)="showUpdate()"></span>
+            <span nz-icon nzType="form" nzTheme="outline" (click)="showUpdate(team)"></span>
             <span nz-icon nzType="copy" nzTheme="outline"></span>
           </td>
         </tr>
@@ -200,16 +200,16 @@
       <div class="scrollable-table-form-project">
         <div class="block-form">
           <label for=""> Tên nhóm</label>
-          <input style="width: 100%;" nz-input  nzSize="large" />
+          <input style="width: 100%;" nz-input id="teamName" name="teamName"  nzSize="large" [(ngModel)]="editedTeam.teamName"/>
         </div>
         <div class="block-form">
           <label for="">Ngày khởi tạo</label>
-          <nz-date-picker nzSize="large" nzPlaceHolder="Chọn ngày tháng năm" style="width: 100%;" [nzFormat]="dateFormat" name="createdDate" required></nz-date-picker>
+          <nz-date-picker nzSize="large" nzPlaceHolder="Chọn ngày tháng năm" style="width: 100%;" [nzFormat]="dateFormat" id="createdDate" name="createdDate" [(ngModel)]="editedTeam.createdDate" required></nz-date-picker>
         </div>
       </div>
       <div class="footer">
         <button (click)="isUpdate = false" class="footer-cancel">Hủy</button>
-        <button class="footer-add">Xác nhận</button>
+        <button class="footer-add" (click)="OkUpdate()" >Xác nhận</button>
       </div>
 
     </form>

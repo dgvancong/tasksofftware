@@ -31,24 +31,25 @@ import { CalendarComponent } from './tasks/calendar/calendar.component';
 import { FormComponent } from './tasks/form/form.component';
 import { IssuesComponent } from './tasks/issues/issues.component';
 import { PagesComponent } from './tasks/pages/pages.component';
-import { ProjectAddComponent } from './projects/project-add/project-add.component';
-import { ProjectListComponent } from './projects/project-list/project-list.component';
-import { ProjectViewsComponent } from './projects/project-views/project-views.component';
+import { ProjectAddComponent } from './manage-project/project-add/project-add.component';
+import { ProjectListComponent } from './manage-project/project-list/project-list.component';
+import { ProjectViewsComponent } from './manage-project/project-views/project-views.component';
 import { ReportsComponent } from './tasks/reports/reports.component';
 import { SettingsComponent } from './tasks/settings/settings.component';
 import { ShortcutsComponent } from './tasks/shortcuts/shortcuts.component';
 import { SummaryComponent } from './tasks/summary/summary.component';
 import { TimlineComponent } from './tasks/timline/timline.component';
 import { ProjectComponent } from './project.component';
-import { DashboardComponent } from './projects/dashboard/dashboard.component';
-import { ProjectMesComponent } from './projects/project-mes/project-mes.component';
-import { ProjectNotificationComponent } from './projects/project-notification/project-notification.component';
-import { ProjectSettingComponent } from './projects/project-setting/project-setting.component';
-import  { ProjectTeamComponent } from './projects/project-team/project-team.component';
-import { ProjectProfileComponent } from './projects/project-profile/project-profile.component';
-import { ProjectStatisComponent } from './projects/project-statis/project-statis.component';
+import { DashboardComponent } from './manage-project/dashboard/dashboard.component';
+import { ProjectMesComponent } from './manage-project/project-mes/project-mes.component';
+import { ProjectNotificationComponent } from './manage-project/project-notification/project-notification.component';
+import { ProjectSettingComponent } from './manage-project/project-setting/project-setting.component';
+import  { ProjectTeamComponent } from './manage-project/project-team/project-team.component';
+import { ProjectProfileComponent } from './manage-project/project-profile/project-profile.component';
+import { ProjectStatisComponent } from './manage-project/project-statis/project-statis.component';
 import { SettingServiceComponent } from './setting/setting-service/setting-service.component';
 import { ListComponent } from './tasks/list/list.component';
+import { UserDetailsComponent } from './manage-project/user-details/user-details.component';
 
 
 
@@ -81,7 +82,8 @@ import { ListComponent } from './tasks/list/list.component';
     ProjectProfileComponent,
     ProjectStatisComponent,
     SettingServiceComponent,
-    ListComponent
+    ListComponent,
+    UserDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -133,6 +135,7 @@ import { ListComponent } from './tasks/list/list.component';
     ProjectTeamComponent,
     ProjectProfileComponent,
     ProjectStatisComponent,
+    UserDetailsComponent,
     SettingServiceComponent,
     ListComponent
   ]

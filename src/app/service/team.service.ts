@@ -22,14 +22,26 @@ export class TeamService {
   addTeammenber(teammenber: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/add_team_member`, teammenber);
   }
+
   addTeammenbers(teamData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/add_team`, teamData);
   }
+
   addTeam(teamName: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/add_team`, { teamName });
   }
+
   deleteTeam(teamId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/delete_team/${teamId}`);
+  }
+
+  updateTeam(teamID: number, teamData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${teamID}`, teamData);
+  }
+
+
+  getBacklog(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/backlog`);
   }
 
 }

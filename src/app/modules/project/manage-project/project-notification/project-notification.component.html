@@ -11,7 +11,7 @@
   <div class="bg-header-text">
 
     <div class="header-text">
-      <h3>DS Người dùng</h3>
+      <h3>Danh sách người dùng</h3>
     </div>
     <div class="bg-header-text-button">
       <button>Tạo người dùng</button>
@@ -67,7 +67,7 @@
 
           <nz-dropdown-menu #import="nzDropdownMenu">
             <div nz-menu>
-              <button class="css-1m7bkbm" type="button" nz-menu-item>
+              <button class="css-1m7bkbm" type="button" nz-menu-item [routerLink]="['/project/project-user-details/'+ data.userID]">
                 <span class="css-12dc8u4">
                   <span nz-icon nzType="exclamation-circle" nzTheme="outline"></span>
                   <span class="css-1uww2tp">
@@ -83,7 +83,7 @@
                   </span>
                 </span>
               </button>
-              <button class="css-1m7bkbm" type="button" nz-menu-item>
+              <button class="css-1m7bkbm" type="button" nz-menu-item (click)="showDelete(data)">
                 <span class="css-12dc8u4">
                   <span nz-icon nzType="delete" nzTheme="outline"></span>
                   <span class="css-1uww2tp">
@@ -99,3 +99,26 @@
     </nz-table>
   </div>
 </div>
+
+
+
+<!-- Modal Delete -->
+<nz-modal
+  [(nzVisible)]="isDelete"
+  [nzFooter]="null"
+  nzWidth="480px"
+>
+<ng-container *nzModalContent>
+  <div class="deleteModal">
+    <div class="warring" style="margin-bottom: 10px;">
+      <img src="/assets/icon/project/icon-warring.svg" alt="">
+    </div>
+    <h5>Xóa người dùng</h5>
+    <p>Người dùng bị xóa sẽ biến mất khỏi hệ thống bao gồm tất cả các thông tin đã lưu và các tài nguyên mà dự án đó đang sở hữu. Bạn chắc chắn muốn xóa người dùng?</p>
+  </div>
+  <div class="footer">
+    <button (click)="isDelete = false" class="footer-cancel">Hủy</button>
+    <button class="footer-add" (click)="OkDelete()">Xác nhận</button>
+  </div>
+</ng-container>
+</nz-modal>

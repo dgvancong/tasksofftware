@@ -34,8 +34,17 @@ export class UserService {
     return this.http.get<any>(`${this.userUrl}`);
   }
 
+  getUserDetails(userID: number) {
+    const url = `${this.userUrl}/${userID}`;
+    return this.http.get(url);
+  }
+
   getUserInfo(userID:any): Observable<any> {
     return this.http.get<any>(`${this.userUrl}/userLogin/${userID}`);
+  }
+
+  deleteUser(userID: number): Observable<any> {
+    return this.http.delete<any>(`${this.userUrl}/delete_user/${userID}`);
   }
 
   logout(): void {

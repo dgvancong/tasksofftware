@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamService } from '../../../../service/team.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-project-team',
   standalone: false,
   templateUrl: './project-team.component.html',
-  styleUrl: './project-team.component.scss'
+  styleUrl: './project-team.component.scss',
+  providers: [
+    DatePipe,
+  ],
 })
 export class ProjectTeamComponent implements OnInit {
 
@@ -16,15 +21,23 @@ export class ProjectTeamComponent implements OnInit {
   teamID: number = 0;
   isDelete = false;
   isUpdate = false;
+  editedTeam: any = {};
+  selectedTeam: any;
   isAddTeam = false;
   teamName: string = '';
+  UpdateTeam: any = {};
 
   constructor(
     private teamService: TeamService,
     private notification: NzNotificationService,
+    private route: ActivatedRoute,
+    private datePipe: DatePipe,
   ){}
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.teamID = params['id'];
+    });
     this.loadTeamsAndMembers();
     this.fetchTeams();
   }
@@ -60,15 +73,15 @@ export class ProjectTeamComponent implements OnInit {
       (data: any) => {
         this.fetchTeams();
         this.notification.success(
-          'Xóa dự án thành công',
-          'Danh sách dự án đã được cập nhật.'
+          'Xóa nhóm thành công',
+          'Danh sách nhóm đã được cập nhật.'
         );
       },
       (error) => {
         this.fetchTeams();
         this.notification.success(
-          'Xóa dự án thành công',
-          'Danh sách dự án đã được cập nhật.'
+          'Xóa nhóm thành công',
+          'Danh sách nhóm đã được cập nhật.'
         );
       }
 
@@ -76,8 +89,33 @@ export class ProjectTeamComponent implements OnInit {
     this.isDelete = false;
   }
 
-  showUpdate(){
+  showUpdate(selectedTeam: any){
+    this.selectedTeam = selectedTeam;
+    this.editedTeam = { ...selectedTeam };
     this.isUpdate = true;
+  }
+  OkUpdate(){
+    if (this.selectedTeam) {
+      const teamID = this.selectedTeam.teamID;
+      this.editedTeam.createdDate = this.datePipe.transform(this.editedTeam.createdDate, 'yyyy-MM-dd');
+      this.teamService.updateTeam(teamID, this.editedTeam).subscribe(
+        (data: any) => {
+          this.notification.success(
+            'Chỉnh sửa nhóm thành công',
+            'Danh sách nhóm đã được cập nhật.'
+          );
+          this.isUpdate = false;
+          this.fetchTeams();
+        },
+        (error) => {
+          this.notification.error(
+            'Chỉnh sửa nhóm không thành công',
+            'Vui lòng kiểm tra lại thông tin nhóm.'
+          );
+          console.error(error);
+        }
+      );
+    }
   }
   getMemberCount(team: any): number {
     return team.members.length;
