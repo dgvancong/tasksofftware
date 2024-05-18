@@ -9,7 +9,9 @@ export const routes: Routes = [
 
   { path: 'home', loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule) },
 
-  { path: 'project', loadChildren: () => import('./modules/project/project.module').then(m => m.ProjectModule) },
+  { path: 'task', loadChildren: () => import('./modules/tasks/tasks.module').then(m => m.TasksModule) },
+
+  { path: 'project', loadChildren: () => import('./modules/projects/projects.module').then(m => m.ProjectsModule) },
 
   { path: '**', loadChildren: () => import('./modules/error/error.module').then(m => m.ErrorModule) }
 ];

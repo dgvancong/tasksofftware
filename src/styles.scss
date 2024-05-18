@@ -6,6 +6,10 @@
 *{
   font-family: 'Sarabun', sans-serif;
 }
+body {
+  margin: 0;
+  background-color: #F5F8FA !important;
+}
 ::-webkit-scrollbar {
   width: 4px !important;
   height: 4px !important;
@@ -269,7 +273,7 @@ td.nz-disable-td.ant-table-cell {
 }
 .bg-title{
   width: 100%;
-  height: 128px;
+  height: auto;
   padding: 16px 16px 16px 16px;
   border-radius: 12px;
   background-color: $color-background;
@@ -319,4 +323,12 @@ td.nz-disable-td.ant-table-cell {
       }
     }
   }
+}
+span.ant-avatar-string.ng-star-inserted {
+  transform: none !important;
+}
+.ant-avatar-lg-string, .ant-avatar-sm-string, .ant-avatar-string {
+  position: absolute;
+  transform-origin: 0 center;
+  left: 25% !important;
 }

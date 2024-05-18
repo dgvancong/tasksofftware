@@ -13,7 +13,6 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 // Components
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IntroComponent } from './intro/intro.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { HomeComponent } from './home.component';
 
 
@@ -21,7 +20,6 @@ import { HomeComponent } from './home.component';
   declarations: [
     DashboardComponent,
     IntroComponent,
-    WelcomeComponent,
     HomeComponent
   ],
   imports: [
@@ -38,7 +36,6 @@ import { HomeComponent } from './home.component';
   exports: [
     DashboardComponent,
     IntroComponent,
-    WelcomeComponent,
     HomeComponent
   ]
 })

@@ -1,0 +1,180 @@
+<nz-layout class="app-layout">
+
+    <nz-header class="app-header">
+
+      <nav class="navbar navigation-container navbar-expand-sm navbar-white bg-white top-navigation sticky site-header">
+        <div class="container-fluid m-0 p-0 ">
+
+          <a class="navbar-brand" style="padding: 0; margin: 0; display: flex; gap: 12px; align-items:center" routerLink="/project/dashboard">
+            <img src="/assets/logo/logo-auth.png" width="158px">
+          </a>
+
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item two-columns">
+                <a class="nav-link">Công việc</a>
+                <img src="/assets/icon/intro/chevron-down-arrow.svg" width="12px" height="20px" alt="">
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">Dự án</a>
+                <img src="/assets/icon/intro/chevron-down-arrow.svg" width="12px" height="20px" alt="">
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">Bộ lọc</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">Tổng quan</a>
+              </li>
+              <li class="nav-item" nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="users">
+                <a class="nav-link">Đội nhóm</a>
+                <img src="/assets/icon/intro/chevron-down-arrow.svg" width="12px" height="20px" alt="">
+              </li>
+
+              <nz-dropdown-menu #users="nzDropdownMenu" >
+                <ul nz-menu>
+                  <li nz-menu-item routerLink="/project/project-user">
+                    <span nz-icon nzType="user-add" nzTheme="outline" style="font-size: 18px;"></span>
+                    Thêm thành viên vào nhóm
+                  </li>
+                  <li nz-menu-item routerLink="/project/project-team">
+                    <span nz-icon nzType="usergroup-add" nzTheme="outline" style="font-size: 18px;"></span>
+                    Tạo dội nhóm
+                  </li>
+
+                  <li nz-menu-divider></li>
+
+                  <li nz-menu-item>
+                    <span nz-icon nzType="file-search" nzTheme="outline" style="font-size: 18px;"></span>
+                    Tìm kiếm người và đội nhóm
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+
+              <li class="nav-item">
+                <a class="nav-link">Ứng dụng</a>
+                <img src="/assets/icon/intro/chevron-down-arrow.svg" width="12px" height="20px" alt="">
+              </li>
+
+            </ul>
+
+          </div>
+
+          <div class="card-header-tabs">
+
+            <div class="header-item">
+
+              <div class="header-search">
+                <nz-input-group [nzSuffix]="suffixIconSearch" style="width: 225px; border-radius: 8px; height: 33px;">
+                  <input type="text" nz-input placeholder="Tìm kiếm thông tin của bạn" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                  <span nz-icon nzType="search"></span>
+                </ng-template>
+              </div>
+
+              <div class="header-item-notification" nz-dropdown nzTrigger="click" [nzDropdownMenu]="notification">
+                <nz-badge [nzDot]="dot">
+                  <span nz-icon nzType="bell" style="font-size: 22px;" nzTheme="outline"></span>
+                </nz-badge>
+                <nz-dropdown-menu
+                #notification="nzDropdownMenu"
+                >
+
+                </nz-dropdown-menu>
+              </div>
+
+              <div class="header-item-message" routerLink="/project/project-setting">
+                <span nz-icon nzType="setting" style="font-size: 22px;" nzTheme="outline"></span>
+              </div>
+
+              <div class="header-item-avatar" nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="users" *ngFor="let member of userData">
+                <nz-avatar
+                  nzText="{{ member.fullName.substring(0, 2).toUpperCase() }}"
+                  class="avatar-user">
+                </nz-avatar>
+                <nz-dropdown-menu #users="nzDropdownMenu" >
+                  <ul nz-menu>
+                    <li nz-menu-item>
+                      <span nz-icon nzType="user-switch" nzTheme="outline" style="font-size: 18px;"></span>
+                      Quản lý tài khoản
+                    </li>
+                    <li nz-menu-item>
+                      <span nz-icon nzType="bulb" nzTheme="outline" style="font-size: 18px;"></span>
+                      Chế độ : Sáng
+                    </li>
+                    <li nz-menu-item (click)="showModal()">
+                      <span nz-icon nzType="logout" nzTheme="outline" style="font-size: 18px;"></span>
+                      Đăng xuất
+                    </li>
+                    <nz-modal
+                    [(nzVisible)]="isVisible"
+                    [nzFooter]="null"
+                    (nzOnCancel)="handleCancel()"
+                    nzWidth="420px"
+                    >
+                      <ng-container *nzModalContent>
+                        <div class="bg-modal-body" style="height: 420px;" >
+                          <div class="bg-background"></div>
+                          <div class="bg-avatar">
+                            <div>
+                              <nz-avatar
+                                nzText="{{ member.fullName.substring(0, 2).toUpperCase() }}"
+                                style="
+                                  color: #0F80DE;
+                                  background-color: #E4F4FE;
+                                  display: flex;
+                                  width: 100px;
+                                  height: 100px;
+                                  padding: 8px;
+                                  flex-direction: column;
+                                  justify-content: center;
+                                  align-items: center;
+                                  gap: 8px;
+                                  font-size: 34px !important;
+                                  font-weight: 700;
+                                  transform: none !important;
+                                "
+                              >
+                            </nz-avatar>
+                          </div>
+                            <div class="bd-info">
+                              <h5 class="bd-info-name">{{ member.fullName }}</h5>
+                              <p class="bd-info-email">{{ member.emailAddress }}</p>
+                            </div>
+                            <button class="bg-button" (click)="logout()">Đăng xuất khỏi hệ thống</button>
+
+                            <div style="height: 1px; align-self: stretch; width: 100%; border: 1px solid #EBEBEB; margin-bottom: 24px;"></div>
+
+                            <div class="bd-logout">
+                              <h5 class="bd-logout-text">Đăng nhập bằng tài khoản khác</h5>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </ng-container>
+                    </nz-modal>
+                  </ul>
+                </nz-dropdown-menu>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </nav>
+
+    </nz-header>
+
+    <nz-content>
+
+      <div class="inner-content">
+
+        <router-outlet> </router-outlet>
+
+      </div>
+
+    </nz-content>
+
+</nz-layout>
