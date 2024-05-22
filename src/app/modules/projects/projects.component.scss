@@ -3,7 +3,7 @@
 
 .app-layout {
 
-  .app-header{
+  .app-header {
     background: $color-background;
     padding: 0;
     height: 75px;
@@ -33,6 +33,7 @@
             display: block;
             color: $color-text-body-black;
             text-decoration: none;
+            font-weight: 700;
 
             &:hover {
               background-color: rgba(0, 0, 0, .05);
@@ -50,12 +51,15 @@
             transform: translateY(-50%);
           }
         }
+
         .two-columns>.popover>.sub-menu.mega {
           grid-template-columns: repeat(2, 1fr);
         }
+
         .mega-section.two-columns {
           grid-template-columns: repeat(2, 1fr);
         }
+
         .nav-link {
           cursor: pointer;
           font-size: 15px;
@@ -69,17 +73,13 @@
 
 
     }
-    .site-header
-      .links-wrapper
-        .menu-item
-          .popover:first-child,
-            .site-header
-              .links-wrapper
-                .menu-item
-                  .popover:nth-child(2) {
-                      left: 0;
-                      transform: none;
+
+    .site-header .links-wrapper .menu-item .popover:first-child,
+    .site-header .links-wrapper .menu-item .popover:nth-child(2) {
+      left: 0;
+      transform: none;
     }
+
     .site-header .popover {
       display: flex;
       padding: 0;
@@ -87,10 +87,10 @@
       left: 50%;
       transform: translate(-50%);
       border-radius: 20px;
-      box-shadow: 0 40px 800px 0 rgba(0,0,0,0.15);
+      box-shadow: 0 40px 800px 0 rgba(0, 0, 0, 0.15);
     }
 
-    .card-header-tabs{
+    .card-header-tabs {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -98,10 +98,11 @@
       align-self: stretch;
       height: 75px;
 
-      .header-search{
+      .header-search {
         margin: 0;
       }
-      .header-item{
+
+      .header-item {
         display: flex;
         align-items: center;
         gap: 32px;
@@ -109,8 +110,8 @@
 
     }
 
-    .bg-header-text-button{
-      button{
+    .bg-header-text-button {
+      button {
         width: 130px;
         height: 40px;
         border-radius: 5px;
@@ -124,28 +125,31 @@
     }
 
   }
+
   .inner-content {
     height: 100%;
     background: $color-background-body;
     padding: 20px 20px 20px;
   }
 }
+
 .ant-dropdown-menu {
-  // width: 200px ;
-  // height: 155px;
+  border-radius: 12px;
   padding: 10px;
 
   span,
   .anticon {
     margin-right: 15px;
   }
+
   .ant-dropdown-menu-item,
-.ant-dropdown-menu-submenu-title {
-  width: 100%;
-  height: 45px;
-  border-radius: 8px;
+  .ant-dropdown-menu-submenu-title {
+    width: 100%;
+    height: 45px;
+    border-radius: 8px;
+  }
 }
-}
+
 .bg-modal-body {
   display: flex;
   flex-direction: column;
@@ -153,7 +157,7 @@
   gap: 24px;
   border-radius: 12px;
 
-  .bg-background{
+  .bg-background {
     width: 404px;
     height: 120px;
     position: absolute;
@@ -162,7 +166,8 @@
     border-radius: 4px;
     background: url(/assets/image/project/Background.png) lightgray 50% / cover no-repeat;
   }
-  .bg-avatar{
+
+  .bg-avatar {
     display: flex;
     position: relative;
     gap: 8px;
@@ -170,7 +175,8 @@
     align-items: center;
     align-self: stretch;
     padding: 64px 24px 24px 24px;
-    img{
+
+    img {
       display: flex;
       width: 100px;
       height: 100px;
@@ -182,11 +188,12 @@
       border-radius: 1000px;
       background: #E4F4FE;
     }
+
     .bd-info {
       display: contents;
 
-      h5{
-        color:$color-text-title;
+      h5 {
+        color: $color-text-title;
         text-align: center;
         font-size: 18px;
         font-style: normal;
@@ -195,7 +202,8 @@
         letter-spacing: -0.04px;
         margin: 0;
       }
-      p{
+
+      p {
         color: #828181;
         font-size: 14px;
         font-style: normal;
@@ -203,7 +211,8 @@
         line-height: 20px;
       }
     }
-    .bg-button{
+
+    .bg-button {
       display: flex;
       padding: 8px 16px;
       justify-content: center;
@@ -220,7 +229,7 @@
       font-weight: 500;
     }
 
-    .bd-logout-text{
+    .bd-logout-text {
       color: #828181;
       text-align: center;
       font-size: 14px;

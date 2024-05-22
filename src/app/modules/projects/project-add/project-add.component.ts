@@ -40,7 +40,7 @@ export class ProjectAddComponent implements OnInit {
     private userService: UserService,
     private projectService: ProjectService,
     private notification: NzNotificationService,
-  ){}
+  ) { }
 
   ngOnInit(): void {
     this.fetchTeams();
@@ -68,7 +68,7 @@ export class ProjectAddComponent implements OnInit {
     );
   }
 
-  addProject(){
+  addProject() {
     const formattedCreatedDate = formatDate(this.project.createdDate, 'yyyy-MM-dd HH:mm:ss', 'en-US');
     this.project.createdDate = formattedCreatedDate;
     this.project.endDate = formattedCreatedDate;
@@ -81,8 +81,8 @@ export class ProjectAddComponent implements OnInit {
         );
         this.router.navigate(['/project/dashboard']);
       },
-      (error) =>
-        {this.notification.error(
+      (error) => {
+        this.notification.error(
           'Thêm dự án không thành công',
           'Vui lòng kiểm tra lại thông tin dự án.'
         );

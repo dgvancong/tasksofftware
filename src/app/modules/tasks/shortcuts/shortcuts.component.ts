@@ -19,7 +19,6 @@ export class ShortcutsComponent implements OnInit {
     this.teamService.getBacklog().subscribe(
       (res: any) => {
         this.backlog = res;
-        console.log(this.backlog);
       },
       (error) => {
         console.log(error);

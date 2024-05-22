@@ -3,7 +3,7 @@
     <div class="container-right">
       <div class="search">
         <nz-input-group [nzSuffix]="suffixIconSearch">
-          <input type="text" nz-input placeholder="Tìm kiếm Bảng" />
+          <input type="text" nz-input placeholder="Tìm kiếm Bảng" [(ngModel)]="searchProject" (ngModelChange)="onSearchChange()"/>
         </nz-input-group>
         <ng-template #suffixIconSearch>
           <span nz-icon nzType="search"></span>
@@ -21,6 +21,8 @@
       </div>
     </div>
     <div class="container-left">
+
+      <button nz-button *ngIf="boardFilter || statusFilter || searchProject" (click)="resetFilters()">Đặt lại bộ lọc</button>
 
       <!-- Chia sẻ -->
       <button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="share">
@@ -43,28 +45,29 @@
       <nz-dropdown-menu #filter="nzDropdownMenu">
         <ul nz-menu class="nz-menu-ul">
           <div class="css-xhdqsk">Lọc theo trạng thái công việc</div>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByStatus('Lowest')">
             <img src="/assets/icon/task/lowest.svg" width="24px" height="24px" alt="">
             Lowest
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByStatus('Low')">
             <img src="/assets/icon/task/low.svg" width="24px" height="24px" alt="">
             Low
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByStatus('Medium')">
             <img src="/assets/icon/task/medium.svg" width="24px" height="24px" alt="">
             Medium
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByStatus('High')">
             <img src="/assets/icon/task/high.svg" width="24px" height="24px" alt="">
             High
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByStatus('Highest')">
             <img src="/assets/icon/task/highest.svg" width="24px" height="24px" alt="">
             Highest
           </li>
         </ul>
       </nz-dropdown-menu>
+
       <!-- Nhóm theo -->
       <button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="group">
         <span nz-icon nzType="menu" nzTheme="outline"></span>
@@ -73,24 +76,25 @@
       <nz-dropdown-menu #group="nzDropdownMenu">
         <ul nz-menu class="nz-menu-ul">
           <div class="css-xhdqsk">Lọc theo bảng công việc</div>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByBoard('To Do')">
             <span nz-icon nzType="file-unknown" nzTheme="outline"></span>
             Thực hiện
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByBoard('In Progress')">
             <span nz-icon nzType="file-text" nzTheme="outline"></span>
             Tiến hành
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByBoard('Test')">
             <span nz-icon nzType="file-sync" nzTheme="outline"></span>
             Kiểm tra
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByBoard('Done')">
             <span nz-icon nzType="file-protect" nzTheme="outline"></span>
             Hoàn thành
           </li>
         </ul>
       </nz-dropdown-menu>
+
       <!-- Hơn -->
       <button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="hon">
         <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
@@ -307,12 +311,9 @@
         <div class="done-drap">
           <ul class="tasks">
 
-            <li
-              class="task" nz-button (click)="showTaskInfor(item)"
+            <li class="task" nz-button (click)="showTaskInfor(item)"
               style="height: 92px; box-shadow: 0 1px 1px #091e4240, 0 0 1px 1px #091e4221;" draggable="true"
-              *ngFor="let item of filterTickets('Done')"
-              (dragstart)="onDragStart(item)"
-            >
+              *ngFor="let item of filterTickets('Done')" (dragstart)="onDragStart(item)">
               {{item.taskType}}
 
               <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px;">
@@ -402,18 +403,13 @@
   </ng-container>
 </nz-modal>
 
-
 <!-- Xem chi tiết công việc -->
 <nz-modal [(nzVisible)]="isShowInfor" [nzFooter]="null" (nzOnCancel)="cancelTaskInfor()" [nzWidth]="1280"
   [style]="'margin-top: -25px;'">
   <ng-container *nzModalContent>
     <form action="">
 
-      <div
-        class="content-info"
-        nz-row
-        *ngIf="selectedProject"
-      >
+      <div class="content-info" nz-row *ngIf="selectedProject">
         <div class="key">
           <img src="/assets/icon/task/10318.svg" width="16px" height="16px">
           <span>Khóa-{{ selectedProject.taskID }}</span>
@@ -444,7 +440,8 @@
 
             <div class="ckd-info">
               <h6>Mô tả công việc</h6>
-              <textarea rows="4" nz-input style="border: none; font-size: 14px; font-weight: 500; color: #74808B; padding: 0;">
+              <textarea rows="4" nz-input
+                style="border: none; font-size: 14px; font-weight: 500; color: #74808B; padding: 0;">
                 {{ selectedProject.description }}
               </textarea>
             </div>
@@ -470,7 +467,7 @@
               </div>
               <small class="_syaz1wmz _1e0c1ule _19pku2gc _o5721q9c _1wyb1crf _vwz41cnx">
                 <strong>Mẹo:</strong>
-                 nhấn
+                nhấn
                 <span class="css-17k26hu" style="max-width: 100%;">
                   <span class="css-1q42gk0" style="max-width: calc(200px - 8px);">M</span>
                 </span> để bình luận
@@ -481,7 +478,8 @@
                   nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
                 <nz-comment-content>
                   <p>
-                    We supply a series of design principles, practical patterns and high quality design resources (Sketch
+                    We supply a series of design principles, practical patterns and high quality design resources
+                    (Sketch
                     and
                     Axure), to help people create their product prototypes beautifully and efficiently.
                   </p>
@@ -533,10 +531,7 @@
                   Quản lý
                 </div>
                 <div class="title-left">
-                  <nz-avatar
-                    nzText="{{ selectedProject.fullName.substring(0, 2).toUpperCase() }}"
-                    class="avatar-user"
-                  >
+                  <nz-avatar nzText="{{ selectedProject.fullName.substring(0, 2).toUpperCase() }}" class="avatar-user">
                   </nz-avatar>
                   <span>{{ selectedProject.fullName }}</span>
                 </div>

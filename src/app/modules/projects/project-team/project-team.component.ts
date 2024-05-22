@@ -26,13 +26,17 @@ export class ProjectTeamComponent implements OnInit {
   isAddTeam = false;
   teamName: string = '';
   UpdateTeam: any = {};
+  searchTerm: string = '';
+  filteredTeams: any[] = [];
+  isDeleteMenber = false;
+  memberToDelete: any = null;
 
   constructor(
     private teamService: TeamService,
     private notification: NzNotificationService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
-  ){}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -41,10 +45,32 @@ export class ProjectTeamComponent implements OnInit {
     this.loadTeamsAndMembers();
     this.fetchTeams();
   }
-  showAddTeam(){
+  fetchTeams() {
+    this.teamService.getTeams().subscribe(
+      (response) => {
+        this.teams = response;
+      },
+      (error) => {
+        console.error('Thông tin dữ liệu team bị lỗi:', error);
+      }
+    );
+  }
+  loadTeamsAndMembers() {
+    this.teamService.getTeams().subscribe(
+      (data) => {
+        this.teams = data;
+        this.filteredTeams = data;
+      },
+      (error) => {
+        console.error('Error fetching teams and members:', error);
+      }
+    );
+  }
+  // Thêm nhóm
+  showAddTeam() {
     this.isAddTeam = true;
   }
-  okAddTeam(){
+  okAddTeam() {
     this.teamService.addTeam(this.teamName).subscribe(
       (response) => {
         this.fetchTeams();
@@ -53,22 +79,22 @@ export class ProjectTeamComponent implements OnInit {
           'Danh sách nhóm đã được cập nhật.'
         );
       },
-      (error) =>
-        {
-          this.fetchTeams();
-          this.notification.success(
-            'Thêm nhóm thành công',
-            'Danh sách nhóm đã được cập nhật.'
+      (error) => {
+        this.fetchTeams();
+        this.notification.success(
+          'Thêm nhóm thành công',
+          'Danh sách nhóm đã được cập nhật.'
         );
       }
     );
     this.isAddTeam = false;
   }
-  showDelete(data: any):void {
+  // Xóa nhóm
+  showDelete(data: any): void {
     this.teamID = data.teamID;
     this.isDelete = true;
   }
-  okDelete(){
+  okDelete() {
     this.teamService.deleteTeam(this.teamID).subscribe(
       (data: any) => {
         this.fetchTeams();
@@ -88,13 +114,46 @@ export class ProjectTeamComponent implements OnInit {
     );
     this.isDelete = false;
   }
+  // Xóa thành viên trong nhóm
+  showDeleteMember(team: any, member: any): void {
+    this.memberToDelete = { team, member };
+    this.isDeleteMenber = true;
+  }
 
-  showUpdate(selectedTeam: any){
+  okDeleteMember(): void {
+    if (this.memberToDelete) {
+      this.teamService.deleteTeamMember(this.memberToDelete.member.teamMemberID).subscribe(
+        (data: any) => {
+          this.loadTeamsAndMembers();
+          this.notification.error(
+            'Lỗi xóa thành viên',
+            'Có lỗi xảy ra khi xóa thành viên.'
+          );
+        },
+        (error) => {
+          this.loadTeamsAndMembers();
+          this.notification.success(
+            'Xóa thành viên thành công',
+            'Danh sách thành viên đã được cập nhật.'
+          );
+        }
+      );
+      this.isDeleteMenber = false;
+      this.memberToDelete = null;
+    }
+  }
+  cancelDeleteMember(): void {
+    this.isDeleteMenber = false;
+    this.memberToDelete = null;
+  }
+  //  Sửa nhóm
+  showUpdate(selectedTeam: any) {
     this.selectedTeam = selectedTeam;
     this.editedTeam = { ...selectedTeam };
     this.isUpdate = true;
   }
-  OkUpdate(){
+
+  OkUpdate() {
     if (this.selectedTeam) {
       const teamID = this.selectedTeam.teamID;
       this.editedTeam.createdDate = this.datePipe.transform(this.editedTeam.createdDate, 'yyyy-MM-dd');
@@ -117,35 +176,24 @@ export class ProjectTeamComponent implements OnInit {
       );
     }
   }
+
   getMemberCount(team: any): number {
     return team.members.length;
   }
-  loadTeamsAndMembers() {
-    this.teamService.getTeams().subscribe(
-      (data) => {
-        this.teams = data;
-      },
-      (error) => {
-        console.error('Error fetching teams and members:', error);
-      }
+
+  onSearchChange(): void {
+    this.filteredTeams = this.teams.filter(team =>
+      team.teamName?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      team.members.some((member: any) => member.fullName?.toLowerCase().includes(this.searchTerm.toLowerCase()))
     );
   }
+
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {
       this.expandSet.add(id);
     } else {
       this.expandSet.delete(id);
     }
-  }
-  fetchTeams() {
-    this.teamService.getTeams().subscribe(
-      (response) => {
-        this.teams = response;
-      },
-      (error) => {
-        console.error('Thông tin dữ liệu team bị lỗi:', error);
-      }
-    );
   }
 
 }

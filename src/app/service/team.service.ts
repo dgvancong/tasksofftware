@@ -38,7 +38,10 @@ export class TeamService {
   updateTeam(teamID: number, teamData: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${teamID}`, teamData);
   }
-
+ // Phương thức gọi API xóa thành viên khỏi nhóm
+  deleteTeamMember(teamMemberID: number) {
+    return this.http.delete(`${this.apiUrl}/team-member/${teamMemberID}`);
+  }
 
   getBacklog(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/backlog`);

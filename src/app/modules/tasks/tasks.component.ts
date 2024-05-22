@@ -18,11 +18,14 @@ export class TasksComponent implements OnInit {
   showContent: boolean = true;
   userData: any;
 
+  logoImage = "/assets/logo/logo-auth.png";
+  arrowImage = "/assets/icon/header/arrow-left.svg";
+
   constructor(
     private userService: UserService,
     private notification: NzNotificationService,
     private router: Router
-  ){}
+  ) { }
   ngOnInit(): void {
     const userID = localStorage.getItem('userID');
     this.userService.getUserInfo(userID).subscribe(
@@ -35,6 +38,19 @@ export class TasksComponent implements OnInit {
     );
   }
 
+  toggleSidebar() {
+    this.isCollapsed = !this.isCollapsed;
+    if (this.isCollapsed) {
+      this.logoImage = "/assets/logo/5.png";
+      this.arrowImage = "/assets/icon/header/arrow-right.svg";
+    } else {
+      this.logoImage = "/assets/logo/logo-auth.png";
+      this.arrowImage = "/assets/icon/header/arrow-left.svg";
+    }
+  }
+  toggleCollapsed(): void {
+    this.isCollapsed = !this.isCollapsed;
+  }
   hideContent() {
     this.showContent = false;
   }

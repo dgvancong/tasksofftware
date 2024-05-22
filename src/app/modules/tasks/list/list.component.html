@@ -1,17 +1,18 @@
-<div  class="content">
+<div class="content">
   <div class="container-fluid scrollable-table">
     <div class="container-right">
       <div class="search">
         <nz-input-group [nzSuffix]="suffixIconSearch">
-          <input type="text" nz-input placeholder="Danh sách tìm kiếm" />
-        </nz-input-group>
+          <input type="text" nz-input placeholder="Danh sách tìm kiếm" [(ngModel)]="searchTask" (ngModelChange)="onSearchChange()" /></nz-input-group>
         <ng-template #suffixIconSearch>
           <span nz-icon nzType="search"></span>
         </ng-template>
       </div>
       <div class="role-team">
         <nz-avatar-group>
-          <nz-avatar style="color:#f56a00; background-color:#fde3cf;" *ngFor="let member of teamData" [nzIcon]="member.picture ? 'user' : undefined" [nzSrc]="member.picture" title="{{member.fullName}}"></nz-avatar>
+          <nz-avatar style="color:#f56a00; background-color:#fde3cf;" *ngFor="let member of teamData"
+            [nzIcon]="member.picture ? 'user' : undefined" [nzSrc]="member.picture"
+            title="{{member.fullName}}"></nz-avatar>
         </nz-avatar-group>
         <div class="team-avatar">
           <span nz-icon nzType="user-add" nzTheme="outline"></span>
@@ -19,6 +20,8 @@
       </div>
     </div>
     <div class="container-left">
+
+      <button nz-button *ngIf="filterApplied" (click)="resetFilters()">Đặt lại bộ lọc</button>
 
       <!-- Chia sẻ -->
       <button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="share">
@@ -41,28 +44,29 @@
       <nz-dropdown-menu #filter="nzDropdownMenu">
         <ul nz-menu class="nz-menu-ul">
           <div class="css-xhdqsk">Lọc theo trạng thái công việc</div>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByStatus(1)">
             <img src="/assets/icon/task/lowest.svg" width="24px" height="24px" alt="">
             Lowest
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByStatus(2)">
             <img src="/assets/icon/task/low.svg" width="24px" height="24px" alt="">
             Low
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByStatus(3)">
             <img src="/assets/icon/task/medium.svg" width="24px" height="24px" alt="">
             Medium
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByStatus(4)">
             <img src="/assets/icon/task/high.svg" width="24px" height="24px" alt="">
             High
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterByStatus(5)">
             <img src="/assets/icon/task/highest.svg" width="24px" height="24px" alt="">
             Highest
           </li>
         </ul>
       </nz-dropdown-menu>
+
       <!-- Nhóm theo -->
       <button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="group">
         <span nz-icon nzType="menu" nzTheme="outline"></span>
@@ -71,24 +75,25 @@
       <nz-dropdown-menu #group="nzDropdownMenu">
         <ul nz-menu class="nz-menu-ul">
           <div class="css-xhdqsk">Lọc theo bảng công việc</div>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterTasks('alphabetical-asc')">
             <span nz-icon nzType="file-unknown" nzTheme="outline"></span>
             Bảng chữ cái (A-Z)
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterTasks('alphabetical-desc')">
             <span nz-icon nzType="file-text" nzTheme="outline"></span>
             Bảng chữ cái (Z-A)
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterTasks('updated-latest')">
             <span nz-icon nzType="file-sync" nzTheme="outline"></span>
             Cập nhật lần cuối (Mới nhất)
           </li>
-          <li nz-menu-item class="nz-menu-li">
+          <li nz-menu-item class="nz-menu-li" (click)="filterTasks('updated-oldest')">
             <span nz-icon nzType="file-protect" nzTheme="outline"></span>
             Cập nhật lần cuối (Cũ nhất)
           </li>
         </ul>
       </nz-dropdown-menu>
+
       <!-- Hơn -->
       <button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="hon">
         <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
@@ -115,79 +120,69 @@
     </div>
   </div>
   <div class="container-body">
-    <nz-table
-      #rowSelectionTable
-      nzShowSizeChanger
-      [nzData]="projectData"
-      [nzShowPagination] = "null"
-      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
-      [nzScroll]="{ x: '1780px', y: '310px' }"
-    >
-    <thead>
-      <tr>
-        <th nzWidth="50px" [(nzChecked)]="checked" [nzIndeterminate]="indeterminate"
-          (nzCheckedChange)="onAllChecked($event)" nzLeft></th>
-        <th>Kiểu</th>
-        <th>
-          <span nz-icon nzType="number" nzTheme="outline"></span>
-          Khóa
-        </th>
-        <th>Tóm tắt</th>
-        <th>
-          <span nz-icon nzType="right-circle" nzTheme="outline"></span>
-          Trạng thái
-        </th>
-        <th>Loại</th>
-        <th>Công việc</th>
-        <th>
-          <span nz-icon nzType="calendar" nzTheme="outline"></span>
-          Giờ thực hiện
-        </th>
-        <th>
-          <span nz-icon nzType="up-circle" nzTheme="outline"></span>
-          Sự ưu tiên
-        </th>
-        <th>
-          <span nz-icon nzType="calendar" nzTheme="outline"></span>
-          Ngày tạo
-        </th>
-        <th>
-          <span nz-icon nzType="calendar" nzTheme="outline"></span>
-          Ngày cập nhật
-        </th>
-        <th>
-          <span nz-icon nzType="team" nzTheme="outline"></span>
-          Quản lý
-        </th>
-        <th nzWidth="100px"> Thao tác</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of rowSelectionTable.data" style="cursor: pointer;">
-        <td nzLeft [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-        <td>{{ data.taskType }}</td>
-        <td>TS-{{ data.projectID }}</td>
-        <td>{{ data.summary }}</td>
+    <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="filteredTasks" [nzShowPagination]="null"
+      [nzScroll]="{ x: '1780px', y: '310px' }">
+      <thead>
+        <tr>
+          <th nzWidth="50px" [(nzChecked)]="checked" [nzIndeterminate]="indeterminate" nzLeft></th>
+          <th>Kiểu</th>
+          <th>
+            <span nz-icon nzType="number" nzTheme="outline"></span>
+            Khóa
+          </th>
+          <th>Tóm tắt</th>
+          <th>
+            <span nz-icon nzType="right-circle" nzTheme="outline"></span>
+            Trạng thái
+          </th>
+          <th>Loại</th>
+          <th>Công việc</th>
+          <th>
+            <span nz-icon nzType="calendar" nzTheme="outline"></span>
+            Giờ thực hiện
+          </th>
+          <th>
+            <span nz-icon nzType="up-circle" nzTheme="outline"></span>
+            Sự ưu tiên
+          </th>
+          <th>
+            <span nz-icon nzType="calendar" nzTheme="outline"></span>
+            Ngày tạo
+          </th>
+          <th>
+            <span nz-icon nzType="calendar" nzTheme="outline"></span>
+            Ngày cập nhật
+          </th>
+          <th>
+            <span nz-icon nzType="team" nzTheme="outline"></span>
+            Quản lý
+          </th>
+          <th nzWidth="100px"> Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data" style="cursor: pointer;">
+          <td nzLeft [nzChecked]="setOfCheckedId.has(data.id)"></td>
+          <td>{{ data.taskType }}</td>
+          <td>TS-{{ data.projectID }}</td>
+          <td>{{ data.summary }}</td>
+          <td> <nz-tag nzColor="success">{{ data.status }}</nz-tag> </td>
+          <td>{{ data.age }}</td>
+          <td> {{ data.description }}</td>
+          <td>{{ data.actualHoursSpent }}</td>
+          <td>{{ priorityMap[data.priority] }}</td>
+          <td>{{ data.createdDate }}</td>
+          <td>{{ data.endDate }}</td>
+          <td>{{ data.fullName }}</td>
+          <td>
+            <span style="margin: 5px; cursor: pointer;" nz-icon nzType="delete" nzTheme="outline"></span>
+            <span style="margin: 5px; cursor: pointer;" nz-icon nzType="form" nzTheme="outline"></span>
+            <span style="cursor: pointer;" nz-icon nzType="copy" nzTheme="outline">
+            </span>
+          </td>
 
-        <td>
-          <nz-tag nzColor="success">{{ data.status }}</nz-tag>
-        </td>
-        <td>{{ data.age }}</td>
-        <td> {{ data.description }}</td>
-        <td>{{ data.actualHoursSpent }}</td>
-        <td>{{ priorityMap[data.priority] }}</td>
-        <td>{{ data.createdDate }}</td>
-        <td>{{ data.endDate }}</td>
-        <td>{{ data.fullName }}</td>
-        <td>
-          <span style="margin: 5px; cursor: pointer;" nz-icon nzType="delete" nzTheme="outline"></span>
-          <span style="margin: 5px; cursor: pointer;" nz-icon nzType="form" nzTheme="outline"></span>
-          <span style="cursor: pointer;" nz-icon nzType="copy" nzTheme="outline">
-          </span>
-        </td>
-
-      </tr>
-    </tbody>
-  </nz-table>
+        </tr>
+      </tbody>
+    </nz-table>
   </div>
 </div>

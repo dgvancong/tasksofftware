@@ -12,13 +12,13 @@ import { ActivatedRoute } from '@angular/router';
 export class ProjectUserComponent implements OnInit {
   users: any[] = [];
   isDelete = false;
-  userID : any;
+  userID: any;
 
- constructor(
-  private userService: UserService,
-  private notification: NzNotificationService,
-  private route: ActivatedRoute,
- ){}
+  constructor(
+    private userService: UserService,
+    private notification: NzNotificationService,
+    private route: ActivatedRoute,
+  ) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.userID = params['id'];
@@ -36,11 +36,11 @@ export class ProjectUserComponent implements OnInit {
       }
     );
   }
-  showDelete(data: any):void {
+  showDelete(data: any): void {
     this.userID = data.userID;
     this.isDelete = true;
   }
-  OkDelete(){
+  OkDelete() {
     this.userService.deleteUser(this.userID).subscribe(
       (data: any) => {
         this.notification.success(

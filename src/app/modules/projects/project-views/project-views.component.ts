@@ -36,14 +36,14 @@ export class ProjectViewsComponent implements OnInit {
     teamID: '',
     userID: '',
   };
-  projectID : any;
+  projectID: any;
 
   constructor(
     private projectService: ProjectService,
     private notification: NzNotificationService,
     private datePipe: DatePipe,
     private route: ActivatedRoute,
-  ){}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -58,12 +58,12 @@ export class ProjectViewsComponent implements OnInit {
     this.isLibraryHidden = !this.isLibraryHidden;
   }
 
-  showDelete(data: any):void {
+  showDelete(data: any): void {
     this.projectID = data.projectID;
     this.isDelete = true;
   }
 
-  OkDelete(){
+  OkDelete() {
     this.projectService.DeleteProject(this.projectID).subscribe(
       (data: any) => {
         this.notification.success(
@@ -83,13 +83,13 @@ export class ProjectViewsComponent implements OnInit {
     );
   }
 
-  showUpdate(selectedProject: any): void{
+  showUpdate(selectedProject: any): void {
     this.selectedProject = selectedProject;
     this.editedProject = { ...selectedProject };
     this.isUpdate = true;
   }
 
-  OkUpdate(){
+  OkUpdate() {
     if (this.selectedProject) {
       const projectID = this.selectedProject.projectID;
       this.editedProject.createdDate = this.datePipe.transform(this.editedProject.createdDate, 'yyyy-MM-dd');

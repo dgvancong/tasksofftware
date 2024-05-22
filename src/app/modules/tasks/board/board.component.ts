@@ -18,10 +18,10 @@ import { formatDistance } from 'date-fns';
 })
 export class AvatarComponent implements OnInit {
   isTeamMember = false;
-  teamID : any;
+  teamID: any;
   teamData: any;
   TaskData: any;
-  projectID : number = 0;
+  projectID: number = 0;
   isVisible = false;
   users: any[] = [];
   teams: any[] = [];
@@ -45,19 +45,25 @@ export class AvatarComponent implements OnInit {
   time = formatDistance(new Date(), new Date());
   editedProject: any = {};
   selectedProject: any;
-  currentItem : any;
+  currentItem: any;
   tasks: any[] = [];
 
+  searchProject: string = '';
+  filteredProject: any[] = [];
+  projects: any[] = [];
+  boardFilter: string | null = null;
+  statusFilter: any | null = null;
 
-constructor(
-  private route: ActivatedRoute,
-  private userService: UserService,
-  private teamService: TeamService,
-  private projectService : ProjectService,
-  private notification: NzNotificationService,
-  private taskService : TaskService,
-  private cdr: ChangeDetectorRef
-){}
+
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private teamService: TeamService,
+    private projectService: ProjectService,
+    private notification: NzNotificationService,
+    private taskService: TaskService,
+    private cdr: ChangeDetectorRef
+  ) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.projectID = params['id'];
@@ -88,11 +94,14 @@ constructor(
       );
     });
   }
+
   getProjectData() {
     if (this.projectID) {
       this.projectService.getProjectById(this.projectID).subscribe(
         (data) => {
           this.TaskData = data;
+          this.projects = data;
+          this.applyFilters();
         },
         (error) => {
           console.error('Lỗi khi lấy dự án theo ID:', error);
@@ -102,9 +111,11 @@ constructor(
       console.error('projectId không được định nghĩa. Không thể lấy dự án theo ID.');
     }
   }
+
   showsTeamMember(): void {
     this.isTeamMember = true;
   }
+
   OksTeamMember(): void {
     const formattedCreatedDate = formatDate(this.teammenber.joinDate, 'yyyy-MM-dd HH:mm:ss', 'en-US');
     this.teammenber.joinDate = formattedCreatedDate;
@@ -128,10 +139,12 @@ constructor(
     );
     this.isTeamMember = false;
   }
+
   getRoleName(roleID: any): string {
     const role = this.roles.find(r => r.roleID === roleID);
     return role ? role.roleName : '';
   }
+
   fetchTeams() {
     this.teamService.getTeams().subscribe(
       (response) => {
@@ -142,6 +155,7 @@ constructor(
       }
     );
   }
+
   fetchUser() {
     this.userService.getUsers().subscribe(
       (response) => {
@@ -153,10 +167,43 @@ constructor(
     );
   }
 
+  onSearchChange() {
+    this.applyFilters();
+  }
+
+  filterByBoard(board: string | null) {
+    this.boardFilter = board;
+    this.applyFilters();
+  }
+
+  filterByStatus(priority: any | null) {
+    this.statusFilter = priority;;
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    const searchTermLower = this.searchProject.toLowerCase();
+    this.filteredProject = this.tasks.filter(task =>
+      (!this.boardFilter || task.status === this.boardFilter) &&
+      (!this.statusFilter || task.priority === this.statusFilter) &&
+      (task.taskType?.toLowerCase().includes(searchTermLower) ||
+      task.taskID?.toString().includes(searchTermLower) ||
+      task.summary?.toLowerCase().includes(searchTermLower) ||
+      task.status?.toLowerCase().includes(searchTermLower))
+    );
+  }
+
+  resetFilters() {
+    this.boardFilter = null;
+    this.statusFilter = null;
+    this.searchProject = '';
+    this.applyFilters();
+  }
+
   // Bảng
 
   filterTickets(status: string) {
-    return this.tasks.filter((task) => task.status === status);
+    return this.filteredProject.filter(task => task.status === status);
   }
 
   onDragStart(item: any) {
@@ -188,21 +235,24 @@ constructor(
 
     this.currentItem = null;
   }
-  onDrapOver(event : any){
+
+  onDrapOver(event: any) {
     event.preventDefault();
   }
 
-  cancelTaskInfor(){
+  cancelTaskInfor() {
     this.isShowInfor = false;
   }
-  showTaskInfor(selectedProject: any): void{
+
+  showTaskInfor(selectedProject: any): void {
     this.selectedProject = selectedProject;
-      if (this.selectedProject) {
-        setTimeout(() => {
-          this.editedProject = { ...selectedProject };
-          this.isShowInfor = true;
-        }, 0);
-      }
+    if (this.selectedProject) {
+      setTimeout(() => {
+        this.editedProject = { ...selectedProject };
+        this.isShowInfor = true;
+      }, 0);
+    }
     this.isShowInfor = true;
   }
+
 }

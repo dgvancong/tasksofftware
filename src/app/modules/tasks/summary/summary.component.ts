@@ -1,4 +1,3 @@
-import { TeamService } from './../../../service/team.service';
 import { UserService } from './../../../service/user.service';
 import { TaskService } from './../../../service/task.service';
 import { ProjectService } from './../../../service/project.service';
@@ -15,19 +14,19 @@ import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.scss']
 })
-export class SummaryComponent implements AfterViewInit, OnInit   {
+export class SummaryComponent implements OnInit {
 
   statusView: any = 1;
-  projectID : number = 0;
+  projectID: number = 0;
   projects: any[] = [];
   projectData: any[] = [];
   users: any[] = [];
   tasks: any[] = [];
   isTask = false;
-  projectId :any;
+  projectId: any;
   TaskData: any;
   teamData: any;
-  teamID : any;
+  teamID: any;
 
   task = {
     projectID: '',
@@ -49,27 +48,36 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
     private msg: NzMessageService,
     private route: ActivatedRoute,
     private router: Router,
-    private projectService : ProjectService,
+    private projectService: ProjectService,
     private taskService: TaskService,
     private userService: UserService,
     private notification: NzNotificationService,
-  ) { }
+  ) {
+  }
 
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.projectId = params['id'];
     });
+    const storedStatusView = localStorage.getItem('statusView');
+    if (storedStatusView) {
+      this.statusView = parseInt(storedStatusView);
+    }
     this.fetchProject();
     this.fetchTask();
     this.fetchUser();
     this.getProjectData();
     this.getProjectTeamInfo();
   }
-  showAddTask(){
+  updateStatusView(viewIndex: number): void {
+    this.statusView = viewIndex;
+    localStorage.setItem('statusView', this.statusView.toString());
+  }
+  showAddTask() {
     this.isTask = true
   }
-  OkAddTask(){
+  OkAddTask() {
     const formattedCreatedDate = formatDate(this.task.createdDate, 'yyyy-MM-dd HH:mm:ss', 'en-US');
     this.task.createdDate = formattedCreatedDate;
     this.task.endDate = formattedCreatedDate;
@@ -84,8 +92,8 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
       (error) => {
         {
           this.notification.error(
-          'Thêm công việc không thành công',
-          'Vui lòng kiểm tra lại thông tin công việc.'
+            'Thêm công việc không thành công',
+            'Vui lòng kiểm tra lại thông tin công việc.'
           );
         }
         console.log(error);
@@ -113,12 +121,12 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
       }
     );
   }
-  fetchTask(){
+  fetchTask() {
     this.taskService.getTask().subscribe(
-      (res) =>{
+      (res) => {
         this.tasks = res;
       },
-      (error) =>{
+      (error) => {
         console.error('Lỗi dữ liệu thông tin công việc', error);
       }
     )
@@ -150,37 +158,22 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
       );
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  ngAfterViewInit() {
-    this.drawChart();
-    this.drowChart();
+  handleChange({ file, fileList }: NzUploadChangeParam): void {
+    const status = file.status;
+    if (status !== 'uploading') {
+      console.log(file, fileList);
+    }
+    if (status === 'done') {
+      this.msg.success(`${file.name} file uploaded successfully.`);
+    } else if (status === 'error') {
+      this.msg.error(`${file.name} file upload failed.`);
+    }
   }
+
   drawChart() {
     const ctx = this.elementRef.nativeElement.querySelector('#myChart');
+    console.log('Canvas element for myChart:', ctx);
+    Chart.getChart(ctx)?.destroy();
     const myChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -210,8 +203,11 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
       }
     });
   }
+
   drowChart() {
     const ctx = this.elementRef.nativeElement.querySelector('#trangthai');
+    console.log('Canvas element for trangthai:', ctx);
+    Chart.getChart(ctx)?.destroy();
     const trangthai = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -236,16 +232,5 @@ export class SummaryComponent implements AfterViewInit, OnInit   {
         }
       }
     });
-  }
-  handleChange({ file, fileList }: NzUploadChangeParam): void {
-    const status = file.status;
-    if (status !== 'uploading') {
-      console.log(file, fileList);
-    }
-    if (status === 'done') {
-      this.msg.success(`${file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      this.msg.error(`${file.name} file upload failed.`);
-    }
   }
 }

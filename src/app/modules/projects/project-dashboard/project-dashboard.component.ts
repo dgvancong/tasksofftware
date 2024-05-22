@@ -18,7 +18,7 @@ export class ProjectDashboardComponent implements OnInit {
     private userService: UserService,
     private projectService: ProjectService,
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getUserInfo();
